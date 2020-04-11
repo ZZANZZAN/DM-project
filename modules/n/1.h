@@ -1,3 +1,6 @@
+#include <stdint.h>
+
+
 int N1(natural *A, natural *B) {
     
     /* Compare length */
