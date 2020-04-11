@@ -180,21 +180,45 @@ natural *read_natural(char *message) {
     /* Reading number to string */
     
     size_t offset;
-    
+    size_t str_offset;
     size_t str_size = 2;
-    size_t str_offset = 0;
     
     bool success = false;
     
-    char *str = mallocate(2 * sizeof(*str), &offset);
+    char *str = mallocate(str_size * sizeof(*str), &offset);
     
     while(success == false) {
         
         success = true;
+		str_offset = 0;
         
         print(message);
         
         char current = skip_spaces();   /* Reading first non-space symbol */
+        
+        /* Skipping leading zeros */
+        
+        bool was_zero = false;
+        
+        while(!feof(stdin) && current != '\n' && (current == '0' || current == ' ')) {
+			
+			if(current == '0') was_zero = true;
+			current = getchar();
+		}
+        
+        /* Handling possible errors */
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(current == '\n') {
+			
+			if(was_zero == true) {
+				
+				str[0] = '0';
+				str_offset = 1;
+				
+			} else success = false;		/* Non-digital symbol */
+		}
         
         while(!feof(stdin) && current != '\n') {
             
@@ -207,7 +231,6 @@ natural *read_natural(char *message) {
                 }
                 
                 str[str_offset++] = current;
-                
                 current = getchar();
                 
             } else if(current == ' ') {
@@ -221,8 +244,6 @@ natural *read_natural(char *message) {
                 success = false;
                 
                 print(UNEXP_SYMBOL "\n\n");
-                
-                str_offset = 0;
                 
                 while(!feof(stdin) && current != '\n') current = getchar();
             }
@@ -296,16 +317,17 @@ integer *read_integer(char *message) {
     size_t offset;
     
     size_t str_size = 2;
-    size_t str_offset = 0;
+    size_t str_offset;
     bool sign = true;
     
     bool success = false;
     
-    char *str = mallocate(2 * sizeof(*str), &offset);
+    char *str = mallocate(str_size * sizeof(*str), &offset);
     
     while(success == false) {
         
         success = true;
+        str_offset = 0;
         
         print(message);
         
@@ -316,6 +338,30 @@ integer *read_integer(char *message) {
             sign = false;
             current = skip_spaces();
         }
+        
+        /* Skipping leading zeros */
+        
+        bool was_zero = false;
+        
+        while(!feof(stdin) && current != '\n' && (current == '0' || current == ' ')) {
+			
+			if(current == '0') was_zero = true;
+			current = getchar();
+		}
+        
+        /* Handling possible errors */
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(current == '\n') {
+			
+			if(was_zero == true) {
+				
+				str[0] = '0';
+				str_offset = 1;
+				
+			} else success = false;		/* Non-digital symbol */
+		}
         
         while(!feof(stdin) && current != '\n') {
             
@@ -328,7 +374,6 @@ integer *read_integer(char *message) {
                 }
                 
                 str[str_offset++] = current;
-                
                 current = getchar();
                 
             } else if(current == ' ') {
@@ -342,8 +387,6 @@ integer *read_integer(char *message) {
                 success = false;
                 
                 print(UNEXP_SYMBOL "\n\n");
-                
-                str_offset = 0;
                 
                 while(!feof(stdin) && current != '\n') current = getchar();
             }
