@@ -164,14 +164,32 @@ natural *init_natural(size_t length) {
 void resize_natural(natural *N, size_t new_length) {
     
     N -> digits = reallocate(N -> digits, new_length * sizeof(*(N -> digits)), N -> offset_digits);
+    N -> length = new_length;
 }
 
 
 void free_natural(natural *N) {
+	
+	/* TEMPORARY BUGFIX */
+	
+	bool correct_address = false;
+	
+	for(size_t i = 0; i < pointers_offset; ++i) {
+		
+		if(pointers[i] == N) {
+			correct_address = true;
+			break;
+		}
+	}
+	
+	if(correct_address == false) return;
+	
     
     free_logged(N -> digits, N -> offset_digits);
     
     free_logged(N, N -> offset_struct);
+    
+    N = NULL;
 }
 
 
@@ -299,10 +317,26 @@ integer *init_integer(size_t length) {
 void resize_integer(integer *N, size_t new_length) {
     
     N -> digits = reallocate(N -> digits, new_length * sizeof(*(N -> digits)), N -> offset_digits);
+    N -> length = new_length;
 }
 
 
 void free_integer(integer *N) {
+	
+	/* TEMPORARY BUGFIX */
+	
+	bool correct_address = false;
+	
+	for(size_t i = 0; i < pointers_offset; ++i) {
+		
+		if(pointers[i] == N) {
+			correct_address = true;
+			break;
+		}
+	}
+	
+	if(correct_address == false) return;
+	
     
     free_logged(N -> digits, N -> offset_digits);
     
