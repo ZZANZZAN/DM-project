@@ -4,7 +4,7 @@ size_t i;
     natural *res;
 	res = init_natural(A -> length);
 	for(i = 0 ; i < res -> length ; i++)
-        res -> digits[i]  = A -> digits[i];
+		res -> digits[i]  = A -> digits[i];
 	/* Skipping nines */
 	i = 0;
 	while(i < (res -> length) && (res -> digits[i]) == 9)
