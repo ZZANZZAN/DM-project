@@ -1,3 +1,4 @@
+// Nikolaenko
 natural *N6(natural *A, int b) {
 	natural *C;
     C = init_natural(A -> length);
