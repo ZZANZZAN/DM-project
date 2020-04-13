@@ -1,7 +1,7 @@
 /* Modules config file. Unavailable commented */
 
 #define N_1
-// #define N_2
+#define N_2
 #define N_3
 // #define N_4
 // #define N_5
