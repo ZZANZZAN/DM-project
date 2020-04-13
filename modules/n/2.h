@@ -1,5 +1,6 @@
 //проверка на ноль, проход по масссиву в поисках отличной от нуля цифры
-bool N2(natural *x) {
+bool N2(natural *x) 
+{
     
     bool flag = false;
 
