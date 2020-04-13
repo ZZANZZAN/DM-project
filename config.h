@@ -3,10 +3,10 @@
 #define N_1
 #define N_2
 #define N_3
-// #define N_4
-// #define N_5
+#define N_4
+#define N_5
 #define N_6
-// #define N_7
+#define N_7
 // #define N_8
 // #define N_9
 // #define N_10
@@ -18,7 +18,7 @@
 #define Z_1
 #define Z_2
 #define Z_3
-// #define Z_4
+#define Z_4
 #define Z_5
 // #define Z_6
 // #define Z_7
