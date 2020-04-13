@@ -24,6 +24,7 @@
 
 #define FIRST_ARG_INT   "First argument (int): "
 #define SECOND_ARG_INT  "Second argument (int): "
+#define THIRD_ARG_INT   "Third argument (int): "
 
 #define RESULT          "Result: "
 
