@@ -1,23 +1,30 @@
 #include <stdint.h>
 
 
-int N1(natural *A, natural *B) {
+int N1(natural *A, natural *B) 
+{
     
     /* Compare length */
     
-    if((A -> length) > (B -> length)) {
+    if((A -> length) > (B -> length)) 
+    {
         
         return 2;
         
-    } else if((A -> length) < (B -> length)) {
+    } 
+    else if((A -> length) < (B -> length)) 
+    {
         
         return 1;
         
-    } else {
+    } 
+    else 
+    {
         
         /* Digits comparison */
         
-        for(size_t i = (A -> length) - 1; i != SIZE_MAX; --i) {
+        for(size_t i = (A -> length) - 1; i != SIZE_MAX; --i) 
+        {
             
             if(A -> digits[i] > (B -> digits[i]))
                 return 2;
