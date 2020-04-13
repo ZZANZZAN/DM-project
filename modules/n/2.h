@@ -1,10 +1,11 @@
 //проверка на ноль, проход по масссиву в поисках отличной от нуля цифры
-bool N2(natural *x){
-bool flag=0;
+bool N2(natural *x) {
+    
+    bool flag = false;
 
-for (int i=0;i<x->length;i++)
-    if (x->digits[i]!=0)
-        flag=1;
-        
-return flag;
+    for (int i = 0; i < (x -> length); i++)
+        if (x -> digits[i] != 0)
+            flag = true;
+    
+    return flag;
 }
