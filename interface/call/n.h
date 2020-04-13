@@ -156,6 +156,42 @@ unsigned char call_N(unsigned char n) {
             }
         #endif
         
+        #ifdef N_9
+            case 9:
+            {
+                natural *A = read_natural(FIRST_ARG_LN);
+                natural *B = read_natural(SECOND_ARG_LN);
+                int k = read_int(THIRD_ARG_INT);
+                natural *result = N9(A, B, k);
+                
+                print("\n" RESULT);
+                write_natural(result);
+                
+                free_natural(A);
+                free_natural(B);
+                free_natural(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef N_10
+            case 10:
+            {
+                natural *A = read_natural(FIRST_ARG_LN);
+                natural *B = read_natural(SECOND_ARG_LN);
+                int result = N10(A, B);
+                
+                print("\n" RESULT);
+                write_int(result);
+                
+                free_natural(A);
+                free_natural(B);
+                
+                break;
+            }
+        #endif
+        
         #ifdef N_11
             case 11:
             {
