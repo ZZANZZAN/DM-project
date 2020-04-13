@@ -24,11 +24,11 @@ unsigned char call(char block, unsigned char n) {
         
         return call_N(n);
     
-    /*
+    
     } else if(block == 'Z') {
         
         return call_Z(n);
-        
+       /*
     } else if(block == 'Q') {
         
         return call_Q(n);
