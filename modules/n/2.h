@@ -3,7 +3,7 @@ bool N2(natural *x) {
     
     bool flag = false;
 
-    for (int i = 0; i < (x -> length); i++)
+    for (size_t i = 0; i < (x -> length); i++)
         if (x -> digits[i] != 0)
             flag = true;
     
