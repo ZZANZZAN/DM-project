@@ -1,4 +1,5 @@
-natural *N3(natural *A) {
+natural *N3(natural *A) 
+{
 	
 	size_t i = 0;
 	
@@ -7,7 +8,8 @@ natural *N3(natural *A) {
 	while(i < (A -> length) && (A -> digits[i]) == 9)
 		A -> digits[i++] = 0;
 	
-	if(i == (A -> length)) {
+	if(i == (A -> length)) 
+	{
 		
 		/* Increasing number length */
 		
@@ -15,7 +17,9 @@ natural *N3(natural *A) {
 		
 		A -> digits[(A -> length) - 1] = 1;
 		
-	} else ++(A -> digits[i]);
+	} 
+	else 
+		++(A -> digits[i]);
 	
 	return A;
 }
