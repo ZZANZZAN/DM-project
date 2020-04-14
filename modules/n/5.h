@@ -31,7 +31,7 @@ natural *N5(natural *A, natural *B)
                 C -> digits[i] += (10 - (D -> digits[i])); 
             } 
         }
-        if(C -> digits[(C -> length) - 1] == 0) 
+        while(C -> digits[(C -> length) - 1] == 0) 
 		resize_natural(C, (C -> length) - 1);
     }
     else if(q == 1)
@@ -53,7 +53,7 @@ natural *N5(natural *A, natural *B)
                 D -> digits[i] += (10 - (C -> digits[i])); 
             } 
         } 
-        if(D -> digits[(D -> length) - 1] == 0) 
+        while(D -> digits[(D -> length) - 1] == 0) 
 		resize_natural(D, (D -> length) - 1);
     }
     else
