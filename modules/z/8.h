@@ -11,7 +11,7 @@ integer *Z8(integer *A, integer *B) {
         D = Z1(B);
         C = N8(C,D);
         R = init_integer(C -> length);
-        for(int i = 0; i < (C -> length); i++) 
+        for(size_t i = 0; i < (C -> length); i++) 
             R -> digits[i] = (C -> digits[i]);
         R -> sign = true;
         if(((q == 1) && (f == 2)) || ((q == 2) && (f == 1))) R = Z3(R);
