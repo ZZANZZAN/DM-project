@@ -1,8 +1,3 @@
-//SUB_ZZ_Z
-//��������� ����� 9305
-//��������� ����� �����
-//�� ������� ��������� �������� ������
-
 integer *Z7(integer *A, integer *B)
 {
     int k;
@@ -47,7 +42,7 @@ integer *Z7(integer *A, integer *B)
     {
         A1 = Z5(A);
         B1 = Z5(B);
-        k = N1(A1, B1)
+        k = N1(A1, B1);
         if (k == 2 || k == 0)
         {
             L = N5(A1, B1);
@@ -57,7 +52,7 @@ integer *Z7(integer *A, integer *B)
         else
         {
             L = N5(B1, A1);
-            R = Z4(L)
+            R = Z4(L);
             R -> sign = false;
             return(R);
         }
