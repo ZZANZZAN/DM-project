@@ -6,15 +6,15 @@ natural *N5(natural *A, natural *B)
     D = init_natural(B -> length);
     C -> length = A -> length;
     D -> length = B -> length;
-    for(int i = 0; i < (C -> length); i++) 
+    for(size_t i = 0; i < (C -> length); i++) 
 	    C -> digits[i] = (A -> digits[i]);
-    for(int i = 0; i < (D -> length); i++) 
+    for(size_t i = 0; i < (D -> length); i++) 
 	    D -> digits[i] = (B -> digits[i]);
 	// compare the numbers
     q = N1(A,B);
     if(q == 2)
     {
-        for(int i = 0; i < (D -> length); i++)
+        for(size_t i = 0; i < (D -> length); i++)
 	{
             if((C -> digits[i]) >= (D -> digits[i])) 
 		    C -> digits[i] -= (D -> digits[i]); // subtraction
@@ -25,7 +25,7 @@ natural *N5(natural *A, natural *B)
 			k++;
                 
                 C -> digits[k--] -= 1; // subtract one from whom we borrow
-                while(k != i) 
+                while((size_t)k != i) 
 			C -> digits[k--] = 9; // if there are zeros between who is being borrowed and who is being borrowed for, then we replace them with nines
                 
                 C -> digits[i] += (10 - (D -> digits[i])); 
@@ -36,7 +36,7 @@ natural *N5(natural *A, natural *B)
     }
     else if(q == 1)
     {
-	    for(int i = 0; i < (C -> length); i++)
+	    for(size_t i = 0; i < (C -> length); i++)
 	    {
             if((D -> digits[i]) >= (C -> digits[i])) 
 		    D -> digits[i] -= (C -> digits[i]); // subtraction
@@ -47,7 +47,7 @@ natural *N5(natural *A, natural *B)
 			k++;
                 
                 D -> digits[k--] -= 1; // subtract one from whom we borrow
-                while(k != i) 
+                while((size_t)k != i) 
 			D -> digits[k--] = 9; // if there are zeros between who is being borrowed and who is being borrowed for, then we replace them with nines
                 
                 D -> digits[i] += (10 - (C -> digits[i])); 

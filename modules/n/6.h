@@ -2,7 +2,7 @@ natural *N6(natural *A, int b)
 {
 	natural *C;
 	C = init_natural(A -> length);
-	for(int i = 0 ; i < (A -> length) ; i++) 
+	for(size_t i = 0 ; i < (A -> length) ; i++) 
 	    C -> digits[i] = (A -> digits[i]);
 	//checking for zero
 	if(b)
