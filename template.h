@@ -26,6 +26,8 @@ typedef struct {
 
 natural *init_natural(size_t length);                   /* Initialize */
 
+natural *copy_natural(natural *N);                      /* Copy */
+
 void resize_natural(natural *N, size_t new_length);     /* Resize */
 
 void free_natural(natural *N);                          /* Remove from memory */
@@ -35,6 +37,20 @@ void free_natural(natural *N);                          /* Remove from memory */
 
 integer *init_integer(size_t length);                   /* Initialize */
 
+integer *copy_integer(integer *N);                      /* Copy */
+
 void resize_integer(integer *N, size_t new_length);     /* Resize */
 
 void free_integer(integer *N);                          /* Remove from memory */
+
+
+
+/* For debugging only */
+
+natural *read_natural(char *message);                   /* Read from stdin */
+
+void write_natural(natural *N);                         /* Write to stdout */
+
+integer *read_integer(char *message);                   /* Read from stdin */
+
+void write_integer(integer *N);                         /* Write to stdout */

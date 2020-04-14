@@ -51,6 +51,8 @@ void write_bool(bool value);							/* Write to stdout */
 
 natural *init_natural(size_t length);                   /* Initialize */
 
+natural *copy_natural(natural *N);                      /* Copy */
+
 void resize_natural(natural *N, size_t new_length);     /* Resize */
 
 void free_natural(natural *N);                          /* Remove from memory */
@@ -63,6 +65,8 @@ void write_natural(natural *N);                         /* Write to stdout */
 /* Integer numbers */
 
 integer *init_integer(size_t length);                   /* Initialize */
+
+integer *copy_integer(integer *N);                      /* Copy */
 
 void resize_integer(integer *N, size_t new_length);     /* Resize */
 
@@ -158,6 +162,17 @@ natural *init_natural(size_t length) {
     N -> length = length;
     
     return N;
+}
+
+
+natural *copy_natural(natural *N) {
+	
+	natural *result = init_natural(N -> length);
+	
+	for(size_t i = 0; i < (N -> length); ++i)
+		result -> digits[i] = N -> digits[i];
+	
+	return result;
 }
 
 
@@ -311,6 +326,19 @@ integer *init_integer(size_t length) {
     N -> length = length;
     
     return N;
+}
+
+
+integer *copy_integer(integer *N) {
+	
+	integer *result = init_integer(N -> length);
+	
+	result -> sign = N -> sign;
+	
+	for(size_t i = 0; i < (N -> length); ++i)
+		result -> digits[i] = N -> digits[i];
+	
+	return result;
 }
 
 
