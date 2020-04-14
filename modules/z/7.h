@@ -3,6 +3,7 @@ integer *Z7(integer *A, integer *B)
     int k;
     integer *R;
     natural *A1, *B1, *L;
+    R = NULL;
 
     if (Z2(A) == 0)
     {
@@ -22,9 +23,18 @@ integer *Z7(integer *A, integer *B)
         B -> sign = true;
         A1 = Z5(A);
         B1 = Z5(B);
-        L = N4(A1, B1);
-        R = Z4(L);
-        R -> sign = false;
+		k = N1(A1, B1);
+		if (k == 2 || k == 0)
+		{
+			L = N5(A1, B1);
+			R = Z4(L);
+			R -> sign = false;
+		}
+		else
+		{
+			L = N5(B1, A1);
+			R = Z4(L);
+		}
     }
 
     if (Z2(A) == 2 && Z2(B) == 1)
