@@ -37,10 +37,21 @@ typedef struct {
 } integer;
 
 
+/* Fraction */
+
+typedef struct {
+    
+    integer *numerator;
+    natural *denominator;
+    size_t offset_struct;       /* Service */
+    
+} fraction;
+
+
 
 /* FUNCTIONS */
 
-int read_int(char *message);							/* Read from stdin */
+int read_int(const char *message);							/* Read from stdin */
 
 void write_int(int n);									/* Write to stdout */
 
@@ -57,7 +68,7 @@ void resize_natural(natural *N, size_t new_length);     /* Resize */
 
 void free_natural(natural *N);                          /* Remove from memory */
 
-natural *read_natural(char *message);                   /* Read from stdin */
+natural *read_natural(const char *message);             /* Read from stdin */
 
 void write_natural(natural *N);                         /* Write to stdout */
 
@@ -72,16 +83,29 @@ void resize_integer(integer *N, size_t new_length);     /* Resize */
 
 void free_integer(integer *N);                          /* Remove from memory */
 
-integer *read_integer(char *message);                   /* Read from stdin */
+integer *read_integer(const char *message);             /* Read from stdin */
 
 void write_integer(integer *N);                         /* Write to stdout */
+
+
+/* Fractions */
+
+fraction *init_fraction(integer *A, natural *B);        /* Initialize */
+
+fraction *copy_fraction(fraction *F);                   /* Copy */
+
+void free_fraction(fraction *F);                        /* Remove from memory */
+
+fraction *read_fraction(const char *message);           /* Read */
+
+void write_fraction(fraction *F);                       /* Write to stdout */
 
 
 
 /* FUNCTIONS IMPLEMENTATIONS */
 
 
-int read_int(char *message) {
+int read_int(const char *message) {
 	
     int result = 0;
     bool success = false;
@@ -203,12 +227,10 @@ void free_natural(natural *N) {
     free_logged(N -> digits, N -> offset_digits);
     
     free_logged(N, N -> offset_struct);
-    
-    N = NULL;
 }
 
 
-natural *read_natural(char *message) {
+natural *read_natural(const char *message) {
     
     /* Reading number to string */
     
@@ -372,7 +394,7 @@ void free_integer(integer *N) {
 }
 
 
-integer *read_integer(char *message) {
+integer *read_integer(const char *message) {
     
     /* Reading number to string */
     
@@ -484,4 +506,70 @@ void write_integer(integer *N) {
         putchar(N -> digits[i] + '0');
     
     putchar('\n');
+}
+
+
+fraction *init_fraction(integer *A, natural *B) {
+    
+    size_t offset;
+    
+    fraction *F = mallocate(sizeof(*F), &offset);
+    
+    F -> numerator = copy_integer(A);
+    F -> denominator = copy_natural(B);
+    F -> offset_struct = offset;
+    
+    return F;
+}
+
+
+fraction *copy_fraction(fraction *F) {
+    
+    return init_fraction(F -> numerator, F -> denominator);
+}
+
+
+void free_fraction(fraction *F) {
+    
+	/* TEMPORARY BUGFIX */
+	
+	bool correct_address = false;
+	
+	for(size_t i = 0; i < pointers_offset; ++i) {
+		
+		if(pointers[i] == F) {
+			correct_address = true;
+			break;
+		}
+	}
+	
+	if(correct_address == false) return;
+    
+    free_integer(F -> numerator);
+    free_natural(F -> denominator);
+    
+    free_logged(F, F -> offset_struct);
+}
+
+
+fraction *read_fraction(const char *message) {
+    
+    print(message);
+    
+    integer *A = read_integer(NUMERATOR);
+    natural *B = read_natural(DENOMINATOR);
+    
+    fraction *F = init_fraction(A, B);
+    
+    free_integer(A);
+    free_natural(B);
+    
+    return F;
+}
+
+
+void write_fraction(fraction *F) {
+    
+    write_integer(F -> numerator);
+    write_natural(F -> denominator);
 }

@@ -22,6 +22,17 @@ typedef struct {
 } integer;
 
 
+/* Fraction */
+
+typedef struct {
+    
+    integer *numerator;
+    natural *denominator;
+    
+} fraction;
+
+
+
 /* Natural numbers */
 
 natural *init_natural(size_t length);                   /* Initialize */
@@ -44,9 +55,20 @@ void resize_integer(integer *N, size_t new_length);     /* Resize */
 void free_integer(integer *N);                          /* Remove from memory */
 
 
+/* Fractions */
+
+fraction *init_fraction(integer *A, natural *B);        /* Initialize */
+
+fraction *copy_fraction(fraction *F);                   /* Copy */
+
+void free_fraction(fraction *F);                        /* Remove from memory */
+
+
 
 /* For debugging only */
 
 void write_natural(natural *N);                         /* Write to stdout */
 
 void write_integer(integer *N);                         /* Write to stdout */
+
+void write_fraction(fraction *F);                       /* Write to stdout */

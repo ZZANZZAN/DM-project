@@ -7,7 +7,7 @@
 
 /* FUNCTIONS */
 
-void print(char *str);      /* Prints message to stderr */
+void print(const char *str);      /* Prints message to stderr */
 
 char skip_spaces();         /* Skips space symbols in stdin */
 
@@ -16,7 +16,7 @@ char skip_spaces();         /* Skips space symbols in stdin */
 /* FUNCTIONS IMPLEMENTATION */
 
 
-void print(char *str) {
+void print(const char *str) {
     
     fprintf(stderr, str);
 }

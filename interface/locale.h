@@ -26,6 +26,12 @@
 #define SECOND_ARG_INT  "Second argument (int): "
 #define THIRD_ARG_INT   "Third argument (int): "
 
+#define FIRST_FRACT     "First argument (fraction)"
+#define SECOND_FRACT    "Second argument (fraction)"
+
+#define NUMERATOR       "    Numerator: "
+#define DENOMINATOR     "    Denominator: "
+
 #define RESULT          "Result: "
 
 #define TRUE            "True"
@@ -71,3 +77,15 @@
 #define Z_8_DESCR   "    Z-8      MUL_ZZ_Z       Product of numbers"
 #define Z_9_DESCR   "    Z-9      DIV_ZZ_Z       Quotient of dividing"
 #define Z_10_DESCR  "    Z-10     MOD_ZZ_Z       Remainder of dividing"
+
+
+/* Block Q */
+
+#define Q_1_DESCR   "    Q-1      RED_Q_Q        Fraction reduction"
+#define Q_2_DESCR   "    Q-2      INT_Q_B        Check if rational is integer"
+#define Q_3_DESCR   "    Q-3      TRANS_Z_Q      Transform from integer to fraction"
+#define Q_4_DESCR   "    Q-4      TRANS_Q_Z      Transform from fraction to integer"
+#define Q_5_DESCR   "    Q-5      ADD_QQ_Q       Adding fractions"
+#define Q_6_DESCR   "    Q-6      SUB_QQ_Q       Subtracting fractions"
+#define Q_7_DESCR   "    Q-7      MUL_QQ_Q       Multiplying fractions"
+#define Q_8_DESCR   "    Q-8      DIV_QQ_Q       Dividing fractions"
