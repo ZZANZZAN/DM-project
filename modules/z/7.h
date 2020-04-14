@@ -10,11 +10,11 @@ integer *Z7(integer *A, integer *B)
             B -> sign = false;
         else if (Z2(B) == 1)
             B -> sign = true;
-        return(B);
+        R = B;
     }
 
     if (Z2(B) == 0)
-        return(A);
+        R = A;
 
     if (Z2(A) == 1 && Z2(B) == 1)
     {
@@ -25,7 +25,6 @@ integer *Z7(integer *A, integer *B)
         L = N4(A1, B1);
         R = Z4(L);
         R -> sign = false;
-        return(R);
     }
 
     if (Z2(A) == 2 && Z2(B) == 1)
@@ -35,7 +34,6 @@ integer *Z7(integer *A, integer *B)
         B1 = Z5(B);
         L = N4(A1, B1);
         R = Z4(L);
-        return(R);
     }
 
     if (Z2(A) == 2 && Z2(B) == 2)
@@ -47,14 +45,12 @@ integer *Z7(integer *A, integer *B)
         {
             L = N5(A1, B1);
             R = Z4(L);
-            return(R);
         }
         else
         {
             L = N5(B1, A1);
             R = Z4(L);
             R -> sign = false;
-            return(R);
         }
     }
 
@@ -66,7 +62,7 @@ integer *Z7(integer *A, integer *B)
         L = N4(A1, B1);
         R = Z4(L);
         R -> sign = false;
-        return(R);
     }
-
+    
+    return(R);
 }
