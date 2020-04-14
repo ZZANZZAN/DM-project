@@ -2,8 +2,10 @@ natural *N4(natural *A, natural *B){
 
     size_t i = 0;
 
-    if (N1(A,B)==2){    //A>B
-        for(i=0;i < B->length;i++){
+    if (N1(A,B)==2)
+    {    //A>B
+        for(i=0;i < B->length;i++)
+        {
             A->digits[i]=(A->digits[i])+(B->digits[i]);
             if(A->digits[i]>9){
                 A->digits[i]=A->digits[i]-10;
