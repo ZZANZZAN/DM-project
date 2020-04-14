@@ -3,6 +3,7 @@ integer *Z7(integer *A, integer *B)
     int k;
     integer *R;
     natural *A1, *B1, *L;
+    R = NULL;
 
     if (Z2(A) == 0)
     {
