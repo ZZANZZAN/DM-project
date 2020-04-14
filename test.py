@@ -1,13 +1,17 @@
 # Checker
 
+# Tests limitations
+
+# 1 - one argument, 2 - two arguments
+
 TIMEOUT = 1
-HIGH_N_1 =  128
-HIGH_N_2 =  32
+HIGH_N_1 =   128
+HIGH_N_2 =   32
 
 LOW_I_1  =  -128
 HIGH_I_1 =   128
 LOW_I_2  =  -16
-HIGH_I_2  =  16
+HIGH_I_2 =   16
 
 
 # Modules implementations
@@ -584,12 +588,21 @@ def check(module):
 
 # Checking for executable
 
-if not os.path.exists("./dmcp"):
-    PATH = "./dmcp"
-    print("Error: executable not found")
-    sys.exit()
+if os.name == "nt":
+    if os.path.exists("./dmcp.exe"):
+        PATH = "./dmcp.exe"
+    elif os.path.exists("./main.exe"):
+        PATH = "./main.exe"
+    else:
+        print("Error: executable not found")
+        sys.exit()
 
-PATH = "./dmcp"
+elif os.name == "posix":
+    if os.path.exists("./dmcp"):
+        PATH = "./dmcp"
+    else:
+        print("Error: executable not found")
+        sys.exit()
 
 
 # Getting list of available modules
