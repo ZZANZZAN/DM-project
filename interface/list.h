@@ -128,7 +128,7 @@ void list() {
     
     /* Block Q */
     
-    // print("\n" BLOCK_Q "\n\n");
+    print("\n" BLOCK_Q "\n\n");
     
     #ifdef Q_1
         print(Q_1_DESCR "\n");
