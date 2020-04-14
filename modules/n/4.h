@@ -7,7 +7,7 @@ natural *N4(natural *A, natural *B){
             A->digits[i]=(A->digits[i])+(B->digits[i]);
             if(A->digits[i]>9){
                 A->digits[i]=A->digits[i]-10;
-                if(i == (B->length-1)) {
+                if(i == (A->length-1)) {
                     resize_natural(A, (A -> length) + 1);
                     A -> digits[A -> length - 1] = 1;
                 } else ++(A -> digits[i+1]);
@@ -20,7 +20,7 @@ natural *N4(natural *A, natural *B){
             B->digits[i]=(B->digits[i])+(A->digits[i]);
             if(B->digits[i]>9){
                 B->digits[i]=B->digits[i]-10;
-                if(i == (A->length-1)) {
+                if(i == (B->length-1)) {
                     resize_natural(B, (B -> length) + 1);
                     B -> digits[B -> length - 1] = 1;
                 } else ++(B -> digits[i+1]);
