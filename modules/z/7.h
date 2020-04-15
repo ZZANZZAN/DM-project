@@ -23,18 +23,9 @@ integer *Z7(integer *A, integer *B)
         B -> sign = true;
         A1 = Z5(A);
         B1 = Z5(B);
-		k = N1(A1, B1);
-		if (k == 2 || k == 0)
-		{
-			L = N5(A1, B1);
-			R = Z4(L);
-			R -> sign = false;
-		}
-		else
-		{
-			L = N5(B1, A1);
-			R = Z4(L);
-		}
+        L = N4(A1, B1);
+        R = Z4(L);
+        R -> sign = false;
     }
 
     if (Z2(A) == 2 && Z2(B) == 1)

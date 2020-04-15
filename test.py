@@ -494,7 +494,7 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + " " + str(j))
+                out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
                     print("failed")
@@ -512,7 +512,7 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + " " + str(j))
+                out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
                     print("failed")
@@ -530,7 +530,7 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + " " + str(j))
+                out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
                     print("failed")
@@ -548,7 +548,7 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + " " + str(j))
+                out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
                     print("failed")
@@ -566,7 +566,7 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + " " + str(j))
+                out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
                     print("failed")
