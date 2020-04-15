@@ -154,6 +154,23 @@ devnull = open(os.devnull, "w")
 
 def run(data):
     return check_output(PATH, input = (data + "\ne\n").encode(), stderr = devnull, timeout = TIMEOUT).decode().strip()
+    
+
+def error(title, out, ans, i, j = None, k = None):
+    print("failed")
+    print("\n  Module: " + title)
+    print("  Test: " + str(i), end = "")
+    
+    if k != None:
+        print(" " + str(j) + " " + str(k))
+    elif j != None:
+        print(" " + str(j))
+    else:
+        print()
+    
+    print("  Output: " + out)
+    print("  Answer: " + ans)
+    print()
 
 
 def check(module):
@@ -176,12 +193,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
         
     elif module == "N2":
@@ -193,12 +205,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
         
     elif module == "N3":
@@ -210,12 +217,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "N4":
@@ -228,12 +230,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "N5":
@@ -246,12 +243,7 @@ def check(module):
                 out = run(module + "\n" + str(j) + "\n" + str(i))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(j) + " " + str(i))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, j, i)
                     success = False
     
     elif module == "N6":
@@ -264,12 +256,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "N7":
@@ -282,12 +269,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "N8":
@@ -300,12 +282,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "N9":
@@ -322,12 +299,7 @@ def check(module):
                     out = run(module + "\n" + str(i) + "\n" + str(j) + "\n" + str(k))
                     
                     if ans != out:
-                        print("failed")
-                        print("\n  Module: " + title)
-                        print("  Test: " + str(i) + " " + str(j) + " " + str(k))
-                        print("  Output: " + out)
-                        print("  Answer: " + ans)
-                        print()
+                        error(title, out, ans, i, j, k)
                         success = False
     
     elif module == "N11":
@@ -340,12 +312,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
                     
     elif module == "N12":
@@ -358,12 +325,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
                     
     elif module == "N13":
@@ -376,12 +338,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
                     
     elif module == "N14":
@@ -394,12 +351,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "Z1":
@@ -411,12 +363,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "Z2":
@@ -428,12 +375,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "Z3":
@@ -445,12 +387,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "Z4":
@@ -462,12 +399,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "Z5":
@@ -479,12 +411,7 @@ def check(module):
             out = run(module + "\n" + str(i))
             
             if ans != out:
-                print("failed")
-                print("\n  Module: " + title)
-                print("  Test: " + str(i))
-                print("  Output: " + out)
-                print("  Answer: " + ans)
-                print()
+                error(title, out, ans, i)
                 success = False
     
     elif module == "Z6":
@@ -497,12 +424,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "Z7":
@@ -515,12 +437,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     elif module == "Z8":
@@ -533,12 +450,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
                     
     elif module == "Z9":
@@ -551,12 +463,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
                     
     elif module == "Z10":
@@ -569,12 +476,7 @@ def check(module):
                 out = run(module + "\n" + str(i) + "\n" + str(j))
                 
                 if ans != out:
-                    print("failed")
-                    print("\n  Module: " + title)
-                    print("  Test: " + str(i) + " " + str(j))
-                    print("  Output: " + out)
-                    print("  Answer: " + ans)
-                    print()
+                    error(title, out, ans, i, j)
                     success = False
     
     else:
@@ -625,11 +527,13 @@ modules = re.finditer(regex, list, re.MULTILINE)
 argv = sys.argv[1:]
 
 if len(argv) >= 1:
+    
     for module in argv:
         module = module.upper()
+        
         if len(module) == 2:
             check(module)
-        else:
+        elif len(module == 3):
             check(module[0] + module[2])
     
 else:
