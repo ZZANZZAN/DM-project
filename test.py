@@ -518,7 +518,7 @@ out, err = list.communicate()
 list = err.decode()
 list = list[list.find("List of available modules"):]
 
-regex = r"[N|Z|Q|P]\-\d"
+regex = r"[N|Z|Q|P]\-\d[ \d]"
 
 modules = re.finditer(regex, list, re.MULTILINE)
 
@@ -538,4 +538,4 @@ if len(argv) >= 1:
     
 else:
     for module in modules:
-        check(module[0][0] + module[0][2:])
+        check(module[0][0] + module[0][2:].strip())
