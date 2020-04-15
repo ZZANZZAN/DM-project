@@ -536,7 +536,7 @@ if len(argv) >= 1:
             module = module[0] + module[2:]
         
         if module not in modules:
-            print(module[0] + "-" + module[1:] + " not available")
+            print(module[0] + "-" + module[1:] + " is not available")
         else:
             check(module)
         
