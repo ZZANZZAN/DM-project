@@ -162,7 +162,7 @@ def check(module):
     number = int(module[1:])
     title = module[0] + "-" + module[1:]
     
-    print(module + "... ", end = "")
+    print(title + "... ", end = "")
     
     success = True
     
@@ -622,5 +622,16 @@ modules = re.finditer(regex, list, re.MULTILINE)
 
 # Running
 
-for module in modules:
-    check(module[0][0] + module[0][2:])
+argv = sys.argv[1:]
+
+if len(argv) >= 1:
+    for module in argv:
+        module = module.upper()
+        if len(module) == 2:
+            check(module)
+        else:
+            check(module[0] + module[2])
+    
+else:
+    for module in modules:
+        check(module[0][0] + module[0][2:])
