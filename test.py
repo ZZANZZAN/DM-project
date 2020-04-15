@@ -600,6 +600,8 @@ if os.name == "nt":
 elif os.name == "posix":
     if os.path.exists("./dmcp"):
         PATH = "./dmcp"
+    elif os.path.exists("./main"):
+        PATH = "./main"
     else:
         print("Error: executable not found")
         sys.exit()
