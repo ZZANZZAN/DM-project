@@ -304,7 +304,7 @@ def check(module):
     
     elif module == "N11":
         for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
+            for j in range(1, HIGH_N_2):
                 if not success:
                     break
                 
@@ -317,7 +317,7 @@ def check(module):
                     
     elif module == "N12":
         for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
+            for j in range(1, HIGH_N_2):
                 if not success:
                     break
                 
@@ -521,6 +521,7 @@ list = list[list.find("List of available modules"):]
 regex = r"[N|Z|Q|P]\-\d[ \d]"
 
 modules = re.finditer(regex, list, re.MULTILINE)
+modules = [module[0][0] + module[0][2:].strip() for module in modules]
 
 # Running
 
@@ -531,11 +532,16 @@ if len(argv) >= 1:
     for module in argv:
         module = module.upper()
         
-        if len(module) == 2:
+        if "-" in module:
+            module = module[0] + module[2:]
+        
+        if module not in modules:
+            print(module[0] + "-" + module[1:] + " not available")
+        else:
             check(module)
-        elif len(module == 3):
-            check(module[0] + module[2])
+        
+
     
 else:
     for module in modules:
-        check(module[0][0] + module[0][2:].strip())
+        check(module)
