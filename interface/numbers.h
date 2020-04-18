@@ -520,6 +520,11 @@ integer *read_integer(const char *message) {
 
 void write_integer(integer *N) {
     
+    if((N -> length) == 0) {
+        printf(INV_MOD_INPUT "\n");
+        return;
+    }
+    
     if(N -> sign == false) putchar('-');
     
     for(size_t i = N -> length - 1; i != SIZE_MAX; --i)

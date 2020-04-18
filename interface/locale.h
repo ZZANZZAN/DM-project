@@ -29,13 +29,15 @@
 #define FIRST_FRACT     "First argument (fraction)"
 #define SECOND_FRACT    "Second argument (fraction)"
 
-#define NUMERATOR       "    Numerator: "
-#define DENOMINATOR     "    Denominator: "
+#define NUMERATOR       "    Numerator (natural): "
+#define DENOMINATOR     "    Denominator (integer): "
 
 #define RESULT          "Result: "
 
 #define TRUE            "True"
 #define FALSE           "False"
+
+#define INV_MOD_INPUT   "invalid module input"
 
 
 /* LIST */
