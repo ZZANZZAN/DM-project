@@ -6,7 +6,7 @@
 
 TIMEOUT = 1
 HIGH_N_1 =   128
-HIGH_N_2 =   32
+HIGH_N_2 =   128
 
 LOW_I_1  =  -128
 HIGH_I_1 =   128
