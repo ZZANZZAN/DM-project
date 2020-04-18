@@ -1,35 +1,52 @@
-natural *N4(natural *A, natural *B){
-
-    size_t i = 0;
-
-    if (N1(A,B)==2)
-    {    //A>B
-        for(i=0;i < B->length;i++)
-        {
-            A->digits[i]=(A->digits[i])+(B->digits[i]);
-            if(A->digits[i]>9){
-                A->digits[i]=A->digits[i]-10;
-                if(i == (A->length-1)) {
-                    resize_natural(A, (A -> length) + 1);
-                    A -> digits[A -> length - 1] = 1;
-                } else ++(A -> digits[i+1]);
-
-            }
-        }
-        return A;
-    } else {    //A<B or A=B
-        for(i=0;i < A->length;i++){
-            B->digits[i]=(B->digits[i])+(A->digits[i]);
-            if(B->digits[i]>9){
-                B->digits[i]=B->digits[i]-10;
-                if(i == (B->length-1)) {
-                    resize_natural(B, (B -> length) + 1);
-                    B -> digits[B -> length - 1] = 1;
-                } else ++(B -> digits[i+1]);
-
-            }
-        }
-        return B;
+natural *N4(natural *A, natural *B) {
+    
+    bool was_swap = false;
+    
+    if((A -> length) < (B -> length))
+    {
+        // Перестановка чисел
+        swap_natural(&A, &B);
+        was_swap = true;
     }
-
+    
+    // A > B
+    
+    natural *C = init_natural(A -> length);
+    
+    signed char sum = 0;
+    
+    
+    // Суммирование
+    
+    for(size_t i = 0; i < (B -> length); ++i)
+    {
+        sum += A -> digits[i] + B -> digits[i];
+        C -> digits[i] = sum % 10;
+        sum /= 10;
+    }
+    
+    
+    // Учёт переполнения
+    
+    for(size_t i = (B -> length); i < (A -> length); ++i)
+    {
+        sum += A -> digits[i];
+        C -> digits[i] = sum % 10;
+        sum /= 10;
+    }
+    
+    
+    if(sum != 0)
+    {
+        resize_natural(C, (A -> length) + 1);
+        C -> digits[(A -> length)] = sum;
+    }
+    
+    if(was_swap == true)
+    {
+        // Обратная перестановка
+        swap_natural(&A, &B);
+    }
+    
+    return C;
 }

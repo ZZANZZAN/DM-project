@@ -4,7 +4,7 @@
 
 # 1 - one argument, 2 - two arguments
 
-TIMEOUT = 1
+TIMEOUT  =   1
 HIGH_N_1 =   128
 HIGH_N_2 =   128
 
