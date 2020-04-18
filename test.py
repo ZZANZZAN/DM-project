@@ -496,7 +496,7 @@ if os.name == "nt":
     elif os.path.exists("./main.exe"):
         PATH = "./main.exe"
     else:
-        print("Error: executable not found")
+        print("Error: executable not found. Compile main.c, please")
         sys.exit()
 
 elif os.name == "posix":
@@ -505,7 +505,7 @@ elif os.name == "posix":
     elif os.path.exists("./main"):
         PATH = "./main"
     else:
-        print("Error: executable not found")
+        print("Error: executable not found. Compile main.c, please")
         sys.exit()
 
 
