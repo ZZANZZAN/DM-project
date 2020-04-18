@@ -66,6 +66,8 @@ natural *copy_natural(natural *N);                      /* Copy */
 
 void resize_natural(natural *N, size_t new_length);     /* Resize */
 
+void swap_natural(natural **A, natural **B);            /* Swap */
+
 void free_natural(natural *N);                          /* Remove from memory */
 
 natural *read_natural(const char *message);             /* Read from stdin */
@@ -80,6 +82,8 @@ integer *init_integer(size_t length);                   /* Initialize */
 integer *copy_integer(integer *N);                      /* Copy */
 
 void resize_integer(integer *N, size_t new_length);     /* Resize */
+
+void swap_integer(integer **A, integer **B);            /* Swap */
 
 void free_integer(integer *N);                          /* Remove from memory */
 
@@ -204,6 +208,14 @@ void resize_natural(natural *N, size_t new_length) {
     
     N -> digits = reallocate(N -> digits, new_length * sizeof(*(N -> digits)), N -> offset_digits);
     N -> length = new_length;
+}
+
+
+void swap_natural(natural **A, natural **B) {
+    
+    natural *temp = *A;
+    *A = *B;
+    *B = temp;
 }
 
 
@@ -368,6 +380,14 @@ void resize_integer(integer *N, size_t new_length) {
     
     N -> digits = reallocate(N -> digits, new_length * sizeof(*(N -> digits)), N -> offset_digits);
     N -> length = new_length;
+}
+
+
+void swap_integer(integer **A, integer **B) {
+    
+    integer *temp = *A;
+    *A = *B;
+    *B = temp;
 }
 
 
