@@ -322,7 +322,6 @@ def check(module):
                     break
                 
                 ans = str(globals()[module](j, i))
-                print(j, i)
                 out = run(module + "\n" + str(j) + "\n" + str(i))
                 
                 if ans != out:
