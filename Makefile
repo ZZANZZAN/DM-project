@@ -17,3 +17,6 @@ clean:
 
 run:
 	./$(TITLE)
+
+test:
+	python3 test.py

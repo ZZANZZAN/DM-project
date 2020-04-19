@@ -11,7 +11,7 @@
 #define N_9
 #define N_10
 #define N_11
-// #define N_12
+#define N_12
 // #define N_13
 // #define N_14
 
@@ -20,16 +20,16 @@
 #define Z_3
 #define Z_4
 #define Z_5
-// #define Z_6
+#define Z_6
 #define Z_7
-#define Z_8
+// #define Z_8
 // #define Z_9
 // #define Z_10
 
 // #define Q_1
 // #define Q_2
 #define Q_3
-// #define Q_4
+#define Q_4
 // #define Q_5
 // #define Q_6
 // #define Q_7
