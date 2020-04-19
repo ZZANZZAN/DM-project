@@ -1,5 +1,5 @@
 natural *N10(natural *A, natural *B) {
-    natural *C, *Result, *n_10, *temp;
+    natural *Result, *n_10, *temp;
     size_t flag, i, length;
     int result, m, a, b;
     length = 0;
