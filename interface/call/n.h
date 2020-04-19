@@ -180,10 +180,9 @@ unsigned char call_N(unsigned char n) {
             {
                 natural *A = read_natural(FIRST_ARG_LN);
                 natural *B = read_natural(SECOND_ARG_LN);
-                int result = N10(A, B);
+                signed char f = N10(A, B);
                 
-                print("\n" RESULT);
-                write_int(result);
+                printf("\nResult: %d\n", f);
                 
                 free_natural(A);
                 free_natural(B);
