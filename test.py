@@ -303,29 +303,30 @@ def check(module):
                         success = False
     
     elif module == "N11":
-        for i in range(0, HIGH_N_2):
-            for j in range(1, HIGH_N_2):
+        for i in range(1, HIGH_N_2):
+            for j in range(i, HIGH_N_2):
                 if not success:
                     break
                 
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
+                ans = str(globals()[module](j, i))
+                out = run(module + "\n" + str(j) + "\n" + str(i))
                 
                 if ans != out:
-                    error(title, out, ans, i, j)
+                    error(title, out, ans, j, i)
                     success = False
                     
     elif module == "N12":
-        for i in range(0, HIGH_N_2):
-            for j in range(1, HIGH_N_2):
+        for i in range(1, HIGH_N_2):
+            for j in range(i, HIGH_N_2):
                 if not success:
                     break
                 
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
+                ans = str(globals()[module](j, i))
+                print(j, i)
+                out = run(module + "\n" + str(j) + "\n" + str(i))
                 
                 if ans != out:
-                    error(title, out, ans, i, j)
+                    error(title, out, ans, j, i)
                     success = False
                     
     elif module == "N13":
