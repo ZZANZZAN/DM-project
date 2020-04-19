@@ -14,8 +14,7 @@ signed char N10(natural *A, natural *B) {
     // calculating the first digit
         if(q == 2) 
         {
-            N = init_natural(B -> length);
-            N = init_natural(B -> length);
+            N = copy_natural(B);
            
 		    for(i = 0; i < (N -> length); i++) 
 	            N -> digits[i] = (B -> digits[i]);
