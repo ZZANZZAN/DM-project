@@ -32,8 +32,8 @@
 #define Q_4
 // #define Q_5
 // #define Q_6
-// #define Q_7
-// #define Q_8
+#define Q_7
+#define Q_8
 
 // #define P_1
 // #define P_2
