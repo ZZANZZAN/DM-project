@@ -2,7 +2,6 @@
 
 signed char N10(natural *A, natural *B) {
     natural *C, *D, *N;
-    size_t i;
     signed char t = 0;
 	
     C = copy_natural(A);
@@ -15,9 +14,6 @@ signed char N10(natural *A, natural *B) {
         if(q == 2) 
         {
             N = copy_natural(B);
-           
-		    for(i = 0; i < (N -> length); i++) 
-	            N -> digits[i] = (B -> digits[i]);
             
             D = N7(D, 1);
             
