@@ -7,8 +7,8 @@ natural *N11(natural *A, natural *B)
     signed char t = 0;
     size_t u;
 
-    N = init_natural(100);
-    R = init_natural(100);
+    N = init_natural((B -> length) + 1);
+    R = init_natural(A -> length);
     C = copy_natural(A);
     D = copy_natural(B);
 
