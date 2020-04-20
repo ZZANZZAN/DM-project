@@ -23,8 +23,8 @@
 #define Z_6
 #define Z_7
 #define Z_8
-// #define Z_9
-// #define Z_10
+#define Z_9
+#define Z_10
 
 // #define Q_1
 // #define Q_2
