@@ -164,6 +164,8 @@ int read_int(const char *message) {
 void write_int(int n) {
 	
 	printf("%d\n", n);
+    
+    fflush(stdout);
 }
 
 void write_bool(bool value) {
@@ -172,6 +174,8 @@ void write_bool(bool value) {
 		printf(TRUE "\n");
 	else
 		printf(FALSE "\n");
+    
+    fflush(stdout);
 }
 
 
@@ -342,6 +346,8 @@ void write_natural(natural *N) {
         putchar(N -> digits[i] + '0');
     
     putchar('\n');
+    
+    fflush(stdout);
 }
 
 
@@ -531,6 +537,8 @@ void write_integer(integer *N) {
         putchar(N -> digits[i] + '0');
     
     putchar('\n');
+    
+    fflush(stdout);
 }
 
 
