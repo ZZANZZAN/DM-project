@@ -161,7 +161,7 @@ unsigned char call_Z(unsigned char n) {
             {
                 integer *A = read_integer(FIRST_ARG_LI);
                 integer *B = read_integer(SECOND_ARG_LI);
-                integer *result = Z9(A);
+                integer *result = Z9(A, B);
                 
                 print("\n" RESULT);
                 write_integer(result);
@@ -179,7 +179,7 @@ unsigned char call_Z(unsigned char n) {
             {
                 integer *A = read_integer(FIRST_ARG_LI);
                 integer *B = read_integer(SECOND_ARG_LI);
-                integer *result = Z10(A);
+                integer *result = Z10(A, B);
                 
                 print("\n" RESULT);
                 write_integer(result);
