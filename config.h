@@ -12,8 +12,8 @@
 #define N_10
 #define N_11
 #define N_12
-// #define N_13
-// #define N_14
+#define N_13
+#define N_14
 
 #define Z_1
 #define Z_2
