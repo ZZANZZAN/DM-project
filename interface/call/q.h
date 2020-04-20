@@ -126,7 +126,7 @@ unsigned char call_Q(unsigned char n) {
             {
                 fraction *A = read_fraction(FIRST_FRACT "\n");
                 fraction *B = read_fraction(SECOND_FRACT "\n");
-                fraction *result = Q7(A);
+                fraction *result = Q7(A, B);
                 
                 print("\n" RESULT "\n");
                 write_fraction(result);
