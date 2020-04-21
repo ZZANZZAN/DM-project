@@ -1,43 +1,359 @@
-# Checker
+from multiprocessing import Pool
+from subprocess import Popen, PIPE, DEVNULL
+import os
+import sys
+import re
 
-# Tests limitations
+"""
+p.stdin.write(b"n1\n1\n1\n")
+p.stdin.flush()
 
-# 1 - one argument, 2 - two arguments
+print(p.stdout.readline())
+"""
 
-TIMEOUT  =   1
-HIGH_N_1 =   128
-HIGH_N_2 =   128
+# Limitations
 
-LOW_I_1  =  -128
-HIGH_I_1 =   128
-LOW_I_2  =  -16
-HIGH_I_2 =   16
+TIMEOUT = 1
+
+NATURAL_LOW_1  = 0
+NATURAL_HIGH_1 = 1024
+NATURAL_HIGH_2 = 64
 
 
-# Modules implementations
+# Naturals templates
 
-# N block
+templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 2, 8]
+
+# 1 - single natural
+# 2 - two naturals
+# 3 - two naturals, first bigger or equal
+# 4 - single natural and digit
+# 5 - single natural and int
+# 6 - two naturals, digit, non-negative result
+# 7 - two naturals, first bigger or equal, second non-zero
+# 8 - two naturals, at least one non-zero
+
+
+def main():
+    
+    global PATH
+    PATH = detect_path()            # Executable path
+    
+    global MODULES
+    MODULES = detect_modules()      # Available modules
+    
+    # Initializing
+    
+    threads_count = os.cpu_count()
+    
+    global POOL
+    POOL = Pool(threads_count)
+    
+    # Running
+    
+    if len(sys.argv) == 1:
+        
+        # Full testing
+        
+        test(MODULES)
+        
+    else:
+        
+        # Selective testing
+        
+        modules = argv_modules()
+        test(modules)
+    
+    
+    # Terminating
+    
+    POOL.close()
+    
+
+
+def test(modules):
+    
+    for module in modules:
+        
+        index = int(module[1:]) - 1
+        
+        print(module[0] + '-' + module[1:] + "... ", end = "")
+        sys.stdout.flush()
+        
+        if module[0] == 'N':
+            template = str(templates_natural[index])
+            globals()["template_" + template](module)
+            
+        elif module[0] == 'Z':
+            pass
+            
+        elif module[0] == 'Q':
+            pass
+            
+        elif module[0] == 'P':
+            pass
+        
+        else:
+            print(" not tested")
+
+
+def error(module, test, out, ans):
+    
+    print()
+    
+    print("   Module: " + module[0] + "-" + module[1:])
+    print("   Test:", *test, sep = " ")
+    print("   Output: " + out)
+    print("   Answer: " + ans)
+    
+    print()
+
+
+def check(module, result):
+    
+    for r in result:
+        result = r.get(timeout = TIMEOUT)
+        
+        if result != True:
+            print("failed")
+            error(module, *result)
+            return
+    
+    return True
+
+
+def template_1(module):
+    
+    result = []
+    
+    # Bruteforce
+    
+    for i in range(0, NATURAL_HIGH_1):
+        result.append(POOL.apply_async(worker, (module, [i])))
+    
+    # Random
+    
+    
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_2(module):
+    
+    if module == "N10":
+        print("not tested")
+        return
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_2):
+        for j in range(0, NATURAL_HIGH_2):
+            result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_3(module):
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_2):
+        for j in range(i, NATURAL_HIGH_2):
+            result.append(POOL.apply_async(worker, (module, [j, i])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_4(module):
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_1):
+        for j in range(0, 9):
+            result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_5(module):
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_2):
+        for j in range(0, NATURAL_HIGH_2):
+            result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_6(module):
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_2):
+        for j in range(0, NATURAL_HIGH_2):
+            for k in range(0, 9):
+                if N9(i, j, k) >= 0:
+                    result.append(POOL.apply_async(worker, (module, [i, j, k])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_7(module):
+    
+    result = []
+    
+    for i in range(1, NATURAL_HIGH_2):
+        for j in range(i, NATURAL_HIGH_2):
+            result.append(POOL.apply_async(worker, (module, [j, i])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_8(module):
+    
+    result = []
+    
+    for i in range(0, NATURAL_HIGH_2):
+        for j in range(0, NATURAL_HIGH_2):
+            if i or j:
+                result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def worker(module, arguments, cmd = 0):
+    
+    # Commands
+    # 0 - usual work
+    # 1 - terminate process
+    
+    global p
+    
+    if "p" in globals():
+        if cmd == 1:
+            p.terminate()
+            return
+    else:
+        if cmd == 0:
+            p = Popen([PATH], stdin = PIPE, stdout = PIPE, stderr = DEVNULL)
+    
+    # Running Python module
+    
+    ans = globals()[module](*arguments)
+    ans = str(ans)
+    
+    # Running external program
+    
+    string = module + "\n" + "\n".join(str(n) for n in arguments) + "\n"
+    
+    p.stdin.write(string.encode())
+    p.stdin.flush()
+    
+    out = p.stdout.readline().decode().strip()
+    
+    # Comparing results
+    
+    if ans == out:
+        return True
+    else:
+        return [arguments, out, ans]
+
+
+def detect_path():
+    
+    # Searching for executable
+    
+    if os.name == "posix":
+        
+        # Linux or UNIX
+        
+        if os.path.isfile("./dmcp"):
+            return "./dmcp"
+        elif os.path.isfile("./main"):
+            return "./main"
+        else:
+            print("Error: executable not found. Compile main.c")
+            sys.exit(1)
+        
+    elif os.name == "nt":
+        
+        # Windows
+        
+        if os.path.isfile("./dmcp"):
+            return "./dmcp.exe"
+        elif os.path.isfile("./main"):
+            return "./main.exe"
+        else:
+            print("Error: executable not found. Compile main.c")
+            sys.exit(1)
+        
+    else:
+        print("Unknown operating system")
+        sys.exit(1)
+
+
+def detect_modules():
+    
+    list = Popen([PATH], stdin = PIPE, stderr = PIPE)
+    list.stdin.write(b"l\ne\n")
+    
+    out, err = list.communicate()
+    list = err.decode()
+    list = list[list.find("List of available modules"):]
+    
+    regex = r"[N|Z|Q|P]\-\d[ \d]"
+    
+    modules = re.finditer(regex, list, re.MULTILINE)
+    modules = [module[0][0] + module[0][2:].strip() for module in modules]
+    
+    return modules
+
+
+def argv_modules():
+    
+    list = sys.argv[1:]
+    result = []
+    
+    for module in list:
+        
+        module = module.upper()
+        
+        if module[1] == '-':
+            module = module[0] + module[2:]
+        
+        if module not in MODULES:
+            print(module[0] + '-' + module[1:] + " is not available")
+            continue
+        
+        result.append(module)
+        
+    return result
+
+
+# Modules
 
 def N1(a, b):
-
-    if(a > b):
-        return 2
-    elif(a < b):
-        return 1
-    else:
-        return 0
+    if a > b:   return 2
+    elif a < b: return 1
+    else:       return 0
 
 
-def N2(n):
-    
-    if(n == 0):
-        return False
-    else:
-        return True
+def N2(a):
+    if a == 0: return False
+    else: return True
 
 
-def N3(n):
-    return n + 1
+def N3(a):
+    return a + 1
 
 
 def N4(a, b):
@@ -64,7 +380,7 @@ def N9(a, b, k):
     return a - b * k
 
 
-def N10():
+def N10(a, b):
     pass
 
 
@@ -78,9 +394,8 @@ def N12(a, b):
 
 def N13(a, b):
     
-    while(a and b):
-        
-        if(a > b):
+    while a and b:
+        if a > b:
             a %= b
         else:
             b %= a
@@ -89,459 +404,7 @@ def N13(a, b):
 
 
 def N14(a, b):
-    return (a * b) / N13(a, b)
+    return (a * b) // N13(a, b)
 
 
-
-# Z block
-
-def Z1(n):
-    return abs(n)
-
-
-def Z2(n):
-    
-    if(n > 0):
-        return 2
-    elif(n < 0):
-        return 1
-    else:
-        return 0
-
-
-def Z3(n):
-    return -n
-
-
-def Z4(n):
-    return n
-
-
-def Z5(n):
-    return n
-
-
-def Z6(a, b):
-    return a + b
-
-
-def Z7(a, b):
-    return a - b
-
-
-def Z8(a, b):
-    return a * b
-
-
-def Z9(a, b):
-    return a // b
-
-
-def Z10(a, b):
-    return a % b
-
-
-# ------------------------------------------------- #
-
-import os
-import re
-import sys
-from subprocess import check_output, Popen, STDOUT, PIPE
-
-PATH = ""
-devnull = open(os.devnull, "w")
-
-
-def run(data):
-    return check_output(PATH, input = (data + "\ne\n").encode(), stderr = devnull, timeout = TIMEOUT).decode().strip()
-    
-
-def error(title, out, ans, i, j = None, k = None):
-    print("failed")
-    print("\n  Module: " + title)
-    print("  Test: " + str(i), end = "")
-    
-    if k != None:
-        print(" " + str(j) + " " + str(k))
-    elif j != None:
-        print(" " + str(j))
-    else:
-        print()
-    
-    print("  Output: " + out)
-    print("  Answer: " + ans)
-    print()
-
-
-def check(module):
-    
-    letter = module[0]
-    number = int(module[1:])
-    title = module[0] + "-" + module[1:]
-    
-    print(title + "... ", end = "")
-    
-    success = True
-    
-    if module == "N1":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-        
-    elif module == "N2":
-        for i in range(0, HIGH_N_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-        
-    elif module == "N3":
-        for i in range(0, HIGH_N_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "N4":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "N5":
-        for i in range(0, HIGH_N_2):
-            for j in range(i, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](j, i))
-                out = run(module + "\n" + str(j) + "\n" + str(i))
-                
-                if ans != out:
-                    error(title, out, ans, j, i)
-                    success = False
-    
-    elif module == "N6":
-        for i in range(0, HIGH_N_1):
-            for j in range(0, 10):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "N7":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "N8":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "N9":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                for k in range(0, 10):
-                    if not success:
-                        break
-                    
-                    ans = str(globals()[module](i, j, k))
-                    if int(ans) < 0:
-                        break
-                    
-                    out = run(module + "\n" + str(i) + "\n" + str(j) + "\n" + str(k))
-                    
-                    if ans != out:
-                        error(title, out, ans, i, j, k)
-                        success = False
-    
-    elif module == "N11":
-        for i in range(1, HIGH_N_2):
-            for j in range(i, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](j, i))
-                out = run(module + "\n" + str(j) + "\n" + str(i))
-                
-                if ans != out:
-                    error(title, out, ans, j, i)
-                    success = False
-                    
-    elif module == "N12":
-        for i in range(1, HIGH_N_2):
-            for j in range(i, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](j, i))
-                out = run(module + "\n" + str(j) + "\n" + str(i))
-                
-                if ans != out:
-                    error(title, out, ans, j, i)
-                    success = False
-                    
-    elif module == "N13":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-                    
-    elif module == "N14":
-        for i in range(0, HIGH_N_2):
-            for j in range(0, HIGH_N_2):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "Z1":
-        for i in range(LOW_I_1, HIGH_I_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "Z2":
-        for i in range(LOW_I_1, HIGH_I_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "Z3":
-        for i in range(LOW_I_1, HIGH_I_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "Z4":
-        for i in range(0, HIGH_N_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "Z5":
-        for i in range(0, HIGH_N_1):
-            if not success:
-                break
-            
-            ans = str(globals()[module](i))
-            out = run(module + "\n" + str(i))
-            
-            if ans != out:
-                error(title, out, ans, i)
-                success = False
-    
-    elif module == "Z6":
-        for i in range(LOW_I_1, HIGH_I_1):
-            for j in range(LOW_I_1, HIGH_I_1):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "Z7":
-        for i in range(LOW_I_1, HIGH_I_1):
-            for j in range(LOW_I_1, HIGH_I_1):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    elif module == "Z8":
-        for i in range(LOW_I_1, HIGH_I_1):
-            for j in range(LOW_I_1, HIGH_I_1):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-                    
-    elif module == "Z9":
-        for i in range(LOW_I_1, HIGH_I_1):
-            for j in range(LOW_I_1, HIGH_I_1):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-                    
-    elif module == "Z10":
-        for i in range(LOW_I_1, HIGH_I_1):
-            for j in range(LOW_I_1, HIGH_I_1):
-                if not success:
-                    break
-                
-                ans = str(globals()[module](i, j))
-                out = run(module + "\n" + str(i) + "\n" + str(j))
-                
-                if ans != out:
-                    error(title, out, ans, i, j)
-                    success = False
-    
-    else:
-        print("not tested")
-        success = False
-    
-    if success:
-        print("OK")
-
-
-
-# Checking for executable
-
-if os.name == "nt":
-    if os.path.exists("./dmcp.exe"):
-        PATH = "./dmcp.exe"
-    elif os.path.exists("./main.exe"):
-        PATH = "./main.exe"
-    else:
-        print("Error: executable not found. Compile main.c, please")
-        sys.exit()
-
-elif os.name == "posix":
-    if os.path.exists("./dmcp"):
-        PATH = "./dmcp"
-    elif os.path.exists("./main"):
-        PATH = "./main"
-    else:
-        print("Error: executable not found. Compile main.c, please")
-        sys.exit()
-
-
-# Getting list of available modules
-
-list = Popen(PATH, stderr = PIPE, stdin = PIPE)
-list.stdin.write(b"l\ne\n")
-
-out, err = list.communicate()
-list = err.decode()
-list = list[list.find("List of available modules"):]
-
-regex = r"[N|Z|Q|P]\-\d[ \d]"
-
-modules = re.finditer(regex, list, re.MULTILINE)
-modules = [module[0][0] + module[0][2:].strip() for module in modules]
-
-# Running
-
-argv = sys.argv[1:]
-
-if len(argv) >= 1:
-    
-    for module in argv:
-        module = module.upper()
-        
-        if "-" in module:
-            module = module[0] + module[2:]
-        
-        if module not in modules:
-            print(module[0] + "-" + module[1:] + " is not available")
-        else:
-            check(module)
-        
-
-    
-else:
-    for module in modules:
-        check(module)
+main()
