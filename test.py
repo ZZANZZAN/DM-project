@@ -1,5 +1,7 @@
 from multiprocessing import Pool
 from subprocess import Popen, PIPE, DEVNULL
+from random import randint
+from math import log10, floor
 import os
 import sys
 import re
@@ -13,11 +15,11 @@ print(p.stdout.readline())
 
 # Limitations
 
-TIMEOUT = 1
-
-NATURAL_LOW_1  = 0
-NATURAL_HIGH_1 = 1024
-NATURAL_HIGH_2 = 64
+TIMEOUT          = 5
+NATURAL_LOW_1    = 0
+NATURAL_HIGH_1   = 1024
+NATURAL_HIGH_2   = 64
+NATURAL_MAX_DEG  = 5
 
 
 # Naturals templates
@@ -122,6 +124,24 @@ def check(module, result):
     return True
 
 
+def natural_rand(min = 0):
+    
+    min_len = len(str(min))
+    min_d = floor(log10(min_len)) + 1
+    
+    length_deg = randint(min_d, NATURAL_MAX_DEG)
+    
+    length_l = 10 ** (length_deg - 1)
+    length_r = 10 ** length_deg - 1
+    length = randint(max(length_l, min_len), length_r)
+    
+    number_l = 10 ** (length - 1)
+    number_r = 10 ** length - 1
+    number = randint(min, number_r)
+    
+    return number
+
+
 def template_1(module):
     
     result = []
@@ -133,7 +153,9 @@ def template_1(module):
     
     # Random
     
-    
+    for i in range(1000):
+        a = natural_rand()
+        result.append(POOL.apply_async(worker, (module, [a])))
     
     if check(module, result) == True:
         print("OK")
@@ -147,9 +169,18 @@ def template_2(module):
     
     result = []
     
+    # Bruteforce
+    
     for i in range(0, NATURAL_HIGH_2):
         for j in range(0, NATURAL_HIGH_2):
             result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    # Random
+    
+    for i in range(1000):
+        a = natural_rand()
+        b = natural_rand()
+        result.append(POOL.apply_async(worker, (module, [a, b])))
     
     if check(module, result) == True:
         print("OK")
@@ -159,9 +190,18 @@ def template_3(module):
     
     result = []
     
+    # Bruteforce
+    
     for i in range(0, NATURAL_HIGH_2):
         for j in range(i, NATURAL_HIGH_2):
             result.append(POOL.apply_async(worker, (module, [j, i])))
+            
+    # Random
+    
+    for i in range(1000):
+        a = natural_rand()
+        b = natural_rand(a)
+        result.append(POOL.apply_async(worker, (module, [b, a])))
     
     if check(module, result) == True:
         print("OK")
