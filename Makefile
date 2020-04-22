@@ -20,3 +20,6 @@ run:
 
 test:
 	python3 test.py
+
+production:
+	clang $(COMMON_FLAGS) -Werror main.c -o $(TITLE)
