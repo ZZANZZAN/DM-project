@@ -1,5 +1,7 @@
 # Коллоквиум по дискретной математике
 
+[![Build status](https://github.com/VolodyaZAVR/DM-project/workflows/Build/badge.svg)](https://github.com/VolodyaZAVR/DM-project/actions?query=workflow%3ABuild)
+
 Это лишь экспериментальная версия оболочки. В ней запросто могут найтись ошибки и недоработки. Обо всех проблемах, пожалуйста, сообщайте лично или через "Issues" на GitHub.
 
 Для блока P структуры, функции и обёртки пока не готовы.

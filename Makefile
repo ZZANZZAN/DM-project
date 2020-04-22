@@ -22,4 +22,4 @@ test:
 	python3 test.py
 
 production:
-	clang $(COMMON_FLAGS) -Werror main.c -o $(TITLE)
+	clang -Werror $(CFLAGS_RELEASE) main.c -o $(TITLE)
