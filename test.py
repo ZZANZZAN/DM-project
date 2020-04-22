@@ -23,7 +23,7 @@ RANDOM_COUNT     = 1000
 
 # Naturals templates
 
-templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 2, 8]
+templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
 
 # 1 - single natural
 # 2 - two naturals
@@ -32,7 +32,7 @@ templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 2, 8]
 # 5 - single natural and int
 # 6 - two naturals, digit, non-negative result
 # 7 - two naturals, first bigger or equal, second non-zero
-# 8 - two naturals, at least one non-zero
+# 8 - two naturals, values at least 1
 
 
 def main():
@@ -147,7 +147,7 @@ def template_1(module):
     
     # Bruteforce
     
-    for i in range(0, NATURAL_HIGH_1):
+    for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
         result.append(POOL.apply_async(worker, (module, [i])))
     
     # Random
@@ -169,8 +169,8 @@ def template_2(module):
     result = []
     
     if BRUTEFORCE:
-        for i in range(0, NATURAL_HIGH_2):
-            for j in range(0, NATURAL_HIGH_2):
+        for i in range(NATURAL_LOW_1, NATURAL_HIGH_2):
+            for j in range(NATURAL_LOW_1, NATURAL_HIGH_2):
                 result.append(POOL.apply_async(worker, (module, [i, j])))
     
     if RANDOM:
@@ -188,7 +188,7 @@ def template_3(module):
     result = []
     
     if BRUTEFORCE:
-        for i in range(0, NATURAL_HIGH_2):
+        for i in range(NATURAL_LOW_1, NATURAL_HIGH_2):
             for j in range(i, NATURAL_HIGH_2):
                 result.append(POOL.apply_async(worker, (module, [j, i])))
             
@@ -207,7 +207,7 @@ def template_4(module):
     result = []
     
     if BRUTEFORCE:
-        for i in range(0, NATURAL_HIGH_1):
+        for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
             for j in range(0, 9):
                 result.append(POOL.apply_async(worker, (module, [i, j])))
     
@@ -251,6 +251,13 @@ def template_6(module):
                     if N9(i, j, k) >= 0:
                         result.append(POOL.apply_async(worker, (module, [i, j, k])))
     
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand()
+            b = natural_rand()
+            c = randint(0, 9)
+            result.append(POOL.apply_async(worker, (module, [a, b, c])))
+    
     if check(module, result) == True:
         print("OK")
 
@@ -264,6 +271,12 @@ def template_7(module):
             for j in range(i, NATURAL_HIGH_2):
                 result.append(POOL.apply_async(worker, (module, [j, i])))
     
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand(1)
+            b = natural_rand(a)
+            result.append(POOL.apply_async(worker, (module, [b, a])))
+    
     if check(module, result) == True:
         print("OK")
 
@@ -273,10 +286,15 @@ def template_8(module):
     result = []
     
     if BRUTEFORCE:
-        for i in range(0, NATURAL_HIGH_2):
-            for j in range(0, NATURAL_HIGH_2):
-                if i or j:
-                    result.append(POOL.apply_async(worker, (module, [i, j])))
+        for i in range(1, NATURAL_HIGH_2):
+            for j in range(1, NATURAL_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand(1)
+            b = natural_rand(1)
+            result.append(POOL.apply_async(worker, (module, [a, b])))
     
     if check(module, result) == True:
         print("OK")
