@@ -21,7 +21,7 @@ natural *N9(natural *A, natural *B, int c) {
             for(i = 0; i < (C -> length); i++) 
                 R -> digits[i] = (C -> digits[i]);
         }
-		else if(q == 1) R = copy_natural(A); 
+		else R = copy_natural(A); 
         
     return R;
 }

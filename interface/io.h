@@ -18,7 +18,7 @@ char skip_spaces();         /* Skips space symbols in stdin */
 
 void print(const char *str) {
     
-    fprintf(stderr, str);
+    fprintf(stderr, "%s", str);
 }
 
 
