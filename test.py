@@ -9,14 +9,16 @@ import re
 
 # Limitations
 
-TIMEOUT          = 5
+BRUTEFORCE = True
+RANDOM = True
+
+TIMEOUT          = 15
 NATURAL_LOW_1    = 0
 NATURAL_HIGH_1   = 1024
 NATURAL_HIGH_2   = 64
+INT_HIGH         = 10000
 NATURAL_MAX_DEG  = 4
-
-BRUTEFORCE = True
-RANDOM = True
+RANDOM_COUNT     = 10000
 
 
 # Naturals templates
@@ -150,7 +152,7 @@ def template_1(module):
     
     # Random
     
-    for i in range(1000):
+    for i in range(RANDOM_COUNT):
         a = natural_rand()
         result.append(POOL.apply_async(worker, (module, [a])))
     
@@ -172,7 +174,7 @@ def template_2(module):
                 result.append(POOL.apply_async(worker, (module, [i, j])))
     
     if RANDOM:
-        for i in range(1000):
+        for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = natural_rand()
             result.append(POOL.apply_async(worker, (module, [a, b])))
@@ -191,7 +193,7 @@ def template_3(module):
                 result.append(POOL.apply_async(worker, (module, [j, i])))
             
     if RANDOM:
-        for i in range(1000):
+        for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = natural_rand(a)
             result.append(POOL.apply_async(worker, (module, [b, a])))
@@ -209,6 +211,12 @@ def template_4(module):
             for j in range(0, 9):
                 result.append(POOL.apply_async(worker, (module, [i, j])))
     
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand()
+            b = randint(0, 9)
+            result.append(POOL.apply_async(worker, (module, [a, b])))
+    
     if check(module, result) == True:
         print("OK")
 
@@ -221,6 +229,12 @@ def template_5(module):
         for i in range(0, NATURAL_HIGH_2):
             for j in range(0, NATURAL_HIGH_2):
                 result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand()
+            b = randint(0, INT_HIGH)
+            result.append(POOL.apply_async(worker, (module, [a, b])))
     
     if check(module, result) == True:
         print("OK")

@@ -13,6 +13,7 @@ natural *N8(natural *A, natural *B)
             temp = N6 (A, B -> digits[i]);
             temp = N7 (temp , i);
             res = N4 (temp , res);
+            free_natural(temp);
         }
     }
     else
@@ -23,6 +24,7 @@ natural *N8(natural *A, natural *B)
         	temp = N6 (B , A -> digits[i]);
             temp = N7 (temp , i);
         	res = N4 (temp , res);
+            free_natural(temp);
         }
     }
     return res;
