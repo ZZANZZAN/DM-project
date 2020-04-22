@@ -6,12 +6,6 @@ import os
 import sys
 import re
 
-"""
-p.stdin.write(b"n1\n1\n1\n")
-p.stdin.flush()
-
-print(p.stdout.readline())
-"""
 
 # Limitations
 
@@ -19,7 +13,10 @@ TIMEOUT          = 5
 NATURAL_LOW_1    = 0
 NATURAL_HIGH_1   = 1024
 NATURAL_HIGH_2   = 64
-NATURAL_MAX_DEG  = 5
+NATURAL_MAX_DEG  = 4
+
+BRUTEFORCE = True
+RANDOM = True
 
 
 # Naturals templates
@@ -169,18 +166,16 @@ def template_2(module):
     
     result = []
     
-    # Bruteforce
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_2):
+            for j in range(0, NATURAL_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [i, j])))
     
-    for i in range(0, NATURAL_HIGH_2):
-        for j in range(0, NATURAL_HIGH_2):
-            result.append(POOL.apply_async(worker, (module, [i, j])))
-    
-    # Random
-    
-    for i in range(1000):
-        a = natural_rand()
-        b = natural_rand()
-        result.append(POOL.apply_async(worker, (module, [a, b])))
+    if RANDOM:
+        for i in range(1000):
+            a = natural_rand()
+            b = natural_rand()
+            result.append(POOL.apply_async(worker, (module, [a, b])))
     
     if check(module, result) == True:
         print("OK")
@@ -190,18 +185,16 @@ def template_3(module):
     
     result = []
     
-    # Bruteforce
-    
-    for i in range(0, NATURAL_HIGH_2):
-        for j in range(i, NATURAL_HIGH_2):
-            result.append(POOL.apply_async(worker, (module, [j, i])))
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_2):
+            for j in range(i, NATURAL_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [j, i])))
             
-    # Random
-    
-    for i in range(1000):
-        a = natural_rand()
-        b = natural_rand(a)
-        result.append(POOL.apply_async(worker, (module, [b, a])))
+    if RANDOM:
+        for i in range(1000):
+            a = natural_rand()
+            b = natural_rand(a)
+            result.append(POOL.apply_async(worker, (module, [b, a])))
     
     if check(module, result) == True:
         print("OK")
@@ -211,9 +204,10 @@ def template_4(module):
     
     result = []
     
-    for i in range(0, NATURAL_HIGH_1):
-        for j in range(0, 9):
-            result.append(POOL.apply_async(worker, (module, [i, j])))
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_1):
+            for j in range(0, 9):
+                result.append(POOL.apply_async(worker, (module, [i, j])))
     
     if check(module, result) == True:
         print("OK")
@@ -223,9 +217,10 @@ def template_5(module):
     
     result = []
     
-    for i in range(0, NATURAL_HIGH_2):
-        for j in range(0, NATURAL_HIGH_2):
-            result.append(POOL.apply_async(worker, (module, [i, j])))
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_2):
+            for j in range(0, NATURAL_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [i, j])))
     
     if check(module, result) == True:
         print("OK")
@@ -235,11 +230,12 @@ def template_6(module):
     
     result = []
     
-    for i in range(0, NATURAL_HIGH_2):
-        for j in range(0, NATURAL_HIGH_2):
-            for k in range(0, 9):
-                if N9(i, j, k) >= 0:
-                    result.append(POOL.apply_async(worker, (module, [i, j, k])))
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_2):
+            for j in range(0, NATURAL_HIGH_2):
+                for k in range(0, 9):
+                    if N9(i, j, k) >= 0:
+                        result.append(POOL.apply_async(worker, (module, [i, j, k])))
     
     if check(module, result) == True:
         print("OK")
@@ -249,9 +245,10 @@ def template_7(module):
     
     result = []
     
-    for i in range(1, NATURAL_HIGH_2):
-        for j in range(i, NATURAL_HIGH_2):
-            result.append(POOL.apply_async(worker, (module, [j, i])))
+    if BRUTEFORCE:
+        for i in range(1, NATURAL_HIGH_2):
+            for j in range(i, NATURAL_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [j, i])))
     
     if check(module, result) == True:
         print("OK")
@@ -261,10 +258,11 @@ def template_8(module):
     
     result = []
     
-    for i in range(0, NATURAL_HIGH_2):
-        for j in range(0, NATURAL_HIGH_2):
-            if i or j:
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_2):
+            for j in range(0, NATURAL_HIGH_2):
+                if i or j:
+                    result.append(POOL.apply_async(worker, (module, [i, j])))
     
     if check(module, result) == True:
         print("OK")
