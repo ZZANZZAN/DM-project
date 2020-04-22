@@ -46,6 +46,7 @@ natural *N11(natural *A, natural *B)
     while(i--)
     {
         N -> length += 1;
+        resize_natural(N, N -> length);
 
         for(b = (N -> length); b >= 2; b--)
             N -> digits[b - 1] = (N -> digits[b - 2]);
