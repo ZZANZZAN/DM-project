@@ -1,7 +1,7 @@
 #include <stdint.h>
 natural *N7(natural *A, int k)
 {
-    if(N2(A) == false) return A;
+    if(N2(A) == false) return copy_natural(A);
     
     natural *res = copy_natural(A);
     

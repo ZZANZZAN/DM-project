@@ -9,8 +9,8 @@ import re
 
 # Limitations
 
-BRUTEFORCE = True
-RANDOM = True
+BRUTEFORCE       = 1
+RANDOM           = 1
 
 TIMEOUT          = 15
 NATURAL_LOW_1    = 0
@@ -18,7 +18,7 @@ NATURAL_HIGH_1   = 1024
 NATURAL_HIGH_2   = 64
 INT_HIGH         = 10000
 NATURAL_MAX_DEG  = 4
-RANDOM_COUNT     = 10000
+RANDOM_COUNT     = 1000
 
 
 # Naturals templates
