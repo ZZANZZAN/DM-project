@@ -1,6 +1,6 @@
 TITLE=dmcp
 
-COMMON_FLAGS=-Wall -Wextra -Wpedantic -std=c99
+COMMON_FLAGS=-Wall -Wextra -Wpedantic -Werror -std=c99
 
 CFLAGS_DEBUG=$(COMMON_FLAGS) -fsanitize=undefined,address,leak -g
 
@@ -22,4 +22,4 @@ test:
 	python3 test.py
 
 production:
-	clang -Werror $(CFLAGS_RELEASE) main.c -o $(TITLE)
+	clang $(CFLAGS_RELEASE) main.c -o $(TITLE)

@@ -7,9 +7,28 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+
+  Ubuntu:
 
     runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Sources compilation
+      run: make production
+
+  Windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Sources compilation
+      run: make
+
+  Mac:
+
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@master
