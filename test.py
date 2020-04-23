@@ -9,20 +9,27 @@ import re
 
 # Limitations
 
-BRUTEFORCE       = 0
-RANDOM           = 0
+BRUTEFORCE       =  0
+RANDOM           =  0
 
-TIMEOUT          = 15
-NATURAL_LOW_1    = 0
-NATURAL_HIGH_1   = 1024
-NATURAL_HIGH_2   = 64
-INT_HIGH         = 10000
-NATURAL_MAX_DEG  = 4
-RANDOM_COUNT     = 1000
+TIMEOUT          =  15
+
+NATURAL_LOW_1    =  0
+NATURAL_HIGH_1   =  1024
+NATURAL_HIGH_2   =  64
+INT_HIGH         =  10000
+NATURAL_MAX_DEG  =  4
+RANDOM_COUNT     =  1000
+
+INTEGER_LOW_1    = -256
+INTEGER_HIGH_1   =  256
+INTEGER_LOW_2    =  -64
+INTEGER_HIGH_2   =   64
+
 
 # Naturals templates
 
-templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
+templates_N = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
 
 # 1 - single natural
 # 2 - two naturals
@@ -32,6 +39,16 @@ templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
 # 6 - two naturals, digit, non-negative result
 # 7 - two naturals, first bigger or equal, second non-zero
 # 8 - two naturals, values at least 1
+
+
+# Integers templates
+
+templates_Z = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4];
+
+# 1 - single integer
+# 2 - single natural
+# 3 - two integers
+# 4 - two integers, second non-zero
 
 
 def main():
@@ -83,16 +100,18 @@ def test(modules):
     
     for module in modules:
         
+        block = module[0]
         index = int(module[1:]) - 1
         
         print(module[0] + '-' + module[1:] + "... ", end = "")
         sys.stdout.flush()
         
-        if module[0] == 'N':
-            template = str(templates_natural[index])
-            globals()["template_" + template](module)
-        else:
+        if block == 'Q' or block == 'P':
             print(" not tested")
+            continue
+        
+        template = str(globals()["templates_" + block][index])
+        globals()["template_" + block + template](module)
 
 
 def error(module, test, out, ans):
@@ -141,26 +160,33 @@ def natural_rand(min = 0):
     return number
 
 
-def template_1(module):
+def integer_rand(min = 0):
+    
+    result = natural_rand(min)
+    
+    if randint(0, 1) == 1: result *= -1
+    
+    return result
+
+
+def template_N1(module):
     
     result = []
     
-    # Bruteforce
+    if BRUTEFORCE:
+        for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
+            result.append(POOL.apply_async(worker, (module, [i])))
     
-    for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
-        result.append(POOL.apply_async(worker, (module, [i])))
-    
-    # Random
-    
-    for i in range(RANDOM_COUNT):
-        a = natural_rand()
-        result.append(POOL.apply_async(worker, (module, [a])))
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand()
+            result.append(POOL.apply_async(worker, (module, [a])))
     
     if check(module, result) == True:
         print("OK")
 
 
-def template_2(module):
+def template_N2(module):
     
     if module == "N10":
         print("not tested")
@@ -183,7 +209,7 @@ def template_2(module):
         print("OK")
 
 
-def template_3(module):
+def template_N3(module):
     
     result = []
     
@@ -202,7 +228,7 @@ def template_3(module):
         print("OK")
 
 
-def template_4(module):
+def template_N4(module):
     
     result = []
     
@@ -221,7 +247,7 @@ def template_4(module):
         print("OK")
 
 
-def template_5(module):
+def template_N5(module):
     
     result = []
     
@@ -240,7 +266,7 @@ def template_5(module):
         print("OK")
 
 
-def template_6(module):
+def template_N6(module):
     
     result = []
     
@@ -262,7 +288,7 @@ def template_6(module):
         print("OK")
 
 
-def template_7(module):
+def template_N7(module):
     
     result = []
     
@@ -281,7 +307,7 @@ def template_7(module):
         print("OK")
 
 
-def template_8(module):
+def template_N8(module):
     
     result = []
     
@@ -299,6 +325,79 @@ def template_8(module):
     if check(module, result) == True:
         print("OK")
 
+
+def template_Z1(module):
+    
+    result = []
+    
+    if BRUTEFORCE:
+        for i in range(INTEGER_LOW_1, INTEGER_HIGH_1):
+            result.append(POOL.apply_async(worker, (module, [i])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = integer_rand()
+            result.append(POOL.apply_async(worker, (module, [a])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_Z2(module):
+    
+    result = []
+    
+    if BRUTEFORCE:
+        for i in range(0, NATURAL_HIGH_1):
+            result.append(POOL.apply_async(worker, (module, [i])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = natural_rand()
+            result.append(POOL.apply_async(worker, (module, [a])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_Z3(module):
+    
+    result = []
+    
+    if BRUTEFORCE:
+        for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
+            for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
+                result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = integer_rand()
+            b = integer_rand()
+            result.append(POOL.apply_async(worker, (module, [a, b])))
+    
+    if check(module, result) == True:
+        print("OK")
+
+
+def template_Z4(module):
+    
+    result = []
+    
+    if BRUTEFORCE:
+        for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
+            for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
+                if j != 0:
+                    result.append(POOL.apply_async(worker, (module, [i, j])))
+    
+    if RANDOM:
+        for i in range(RANDOM_COUNT):
+            a = integer_rand()
+            b = integer_rand(1)
+            result.append(POOL.apply_async(worker, (module, [a, b])))
+    
+    if check(module, result) == True:
+        print("OK")
+    
 
 def worker(module, arguments, cmd = 0):
     
@@ -496,6 +595,48 @@ def N13(a, b):
 
 def N14(a, b):
     return (a * b) // N13(a, b)
+
+
+def Z1(a):
+    return abs(a)
+
+
+def Z2(a):
+    if a > 0:   return 2
+    elif a < 0: return 1
+    else:       return 0
+
+
+def Z3(a):
+    return -a
+
+
+def Z4(a):
+    return a
+
+
+def Z5(a):
+    return abs(a)
+
+
+def Z6(a, b):
+    return a + b
+
+
+def Z7(a, b):
+    return a - b
+
+
+def Z8(a, b):
+    return a * b
+
+
+def Z9(a, b):
+    return a // b
+
+
+def Z10(a, b):
+    return a % b
 
 
 main()
