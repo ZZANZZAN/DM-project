@@ -165,7 +165,7 @@ void list() {
     
     /* Block P */
     
-    // print("\n" BLOCK_P "\n\n");
+    print("\n" BLOCK_P "\n\n");
     
     #ifdef P_1
         print(P_1_DESCR "\n");

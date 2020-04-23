@@ -91,3 +91,20 @@
 #define Q_6_DESCR   "    Q-6      SUB_QQ_Q       Subtracting fractions"
 #define Q_7_DESCR   "    Q-7      MUL_QQ_Q       Multiplying fractions"
 #define Q_8_DESCR   "    Q-8      DIV_QQ_Q       Dividing fractions"
+
+
+/* Block P */
+
+#define P_1_DESCR   "    P-1      ADD_PP_P       Addition"
+#define P_2_DESCR   "    P-2      SUB_PP_P       Subtraction"
+#define P_3_DESCR   "    P-3      MUL_PQ_P       Multiplying by digit"
+#define P_4_DESCR   "    P-4      MUL_Pxk_P      Multiplying by x^k"
+#define P_5_DESCR   "    P-5      LED_P_Q        Highest coefficient"
+#define P_6_DESCR   "    P-6      DEG_P_N        Degree"
+#define P_7_DESCR   "    P-7      FAC_P_Q        GCD of numerators and LCM of denominators"
+#define P_8_DESCR   "    P-8      MUL_PP_P       Multiplying"
+#define P_9_DESCR   "    P-9      DIV_PP_P       Quotient of division"
+#define P_10_DESCR  "    P-10     MOD_PP_P       Remainder of division"
+#define P_11_DESCR  "    P-11     GCF_PP_P       GCD"
+#define P_12_DESCR  "    P-12     DER_PP_P       Derivative"
+#define P_13_DESCR  "    P-13     NMR_PP_P       Multiple roots to simple"

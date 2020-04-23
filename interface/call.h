@@ -32,11 +32,9 @@ unsigned char call(char block, unsigned char n) {
         
         return call_Q(n);
         
-    /*
     } else if(block == 'P') {
         
         return call_P(n);
-    */
     
     } else return RCODE_NF;
 }
