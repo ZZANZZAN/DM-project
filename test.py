@@ -9,8 +9,8 @@ import re
 
 # Limitations
 
-BRUTEFORCE       = 1
-RANDOM           = 1
+BRUTEFORCE       = 0
+RANDOM           = 0
 
 TIMEOUT          = 15
 NATURAL_LOW_1    = 0
@@ -19,7 +19,6 @@ NATURAL_HIGH_2   = 64
 INT_HIGH         = 10000
 NATURAL_MAX_DEG  = 4
 RANDOM_COUNT     = 1000
-
 
 # Naturals templates
 
@@ -37,6 +36,8 @@ templates_natural = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
 
 def main():
     
+    set_flags()
+    
     global PATH
     PATH = detect_path()            # Executable path
     
@@ -51,6 +52,9 @@ def main():
     POOL = Pool(threads_count)
     
     # Running
+    
+    global SUCCESS
+    SUCCESS = True
     
     if len(sys.argv) == 1:
         
@@ -70,6 +74,9 @@ def main():
     
     POOL.close()
     
+    if not SUCCESS:
+        sys.exit(1)
+    
 
 
 def test(modules):
@@ -84,21 +91,14 @@ def test(modules):
         if module[0] == 'N':
             template = str(templates_natural[index])
             globals()["template_" + template](module)
-            
-        elif module[0] == 'Z':
-            pass
-            
-        elif module[0] == 'Q':
-            pass
-            
-        elif module[0] == 'P':
-            pass
-        
         else:
             print(" not tested")
 
 
 def error(module, test, out, ans):
+    
+    global SUCCESS
+    SUCCESS = False
     
     print()
     
@@ -337,6 +337,27 @@ def worker(module, arguments, cmd = 0):
     else:
         return [arguments, out, ans]
 
+
+def set_flags():
+    
+    any_flags = False
+    
+    global BRUTEFORCE
+    global RANDOM
+    
+    if "-b" in sys.argv:
+        sys.argv.remove("-b")
+        BRUTEFORCE = 1
+        any_flags = True
+    
+    if "-r" in sys.argv:
+        sys.argv.remove("-r")
+        RANDOM = 1
+        any_flags = True
+    
+    if not any_flags:
+        BRUTEFORCE = 1
+        RANDOM = 1
 
 def detect_path():
     

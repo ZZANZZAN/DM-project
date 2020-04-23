@@ -21,5 +21,11 @@ run:
 test:
 	python3 test.py
 
+test_bruteforce:
+	python3 test.py -b
+
+test_random:
+	python3 test.py -r
+
 production:
 	clang $(CFLAGS_RELEASE) main.c -o $(TITLE)

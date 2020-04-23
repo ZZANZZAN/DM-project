@@ -8,7 +8,7 @@ on:
 
 jobs:
   
-  Test:
+  Bruteforce:
   
     runs-on: ubuntu-latest
   
@@ -16,5 +16,16 @@ jobs:
     - uses: actions/checkout@master
     - name: Sources compilation
       run: make
-    - name: Testing
-      run: make test
+    - name: Bruteforce testing
+      run: make test_bruteforce
+  
+  Random:
+    
+    runs-on: ubuntu-latest
+  
+    steps:
+    - uses: actions/checkout@master
+    - name: Sources compilation
+      run: make
+    - name: Random testing
+      run: make test_random
