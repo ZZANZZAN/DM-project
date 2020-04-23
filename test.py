@@ -4,6 +4,7 @@ from random import randint
 from math import log10, floor
 import os
 import sys
+import time
 import re
 
 
@@ -109,9 +110,17 @@ def test(modules):
         if block == 'Q' or block == 'P':
             print(" not tested")
             continue
-        
+            
         template = str(globals()["templates_" + block][index])
-        globals()["template_" + block + template](module)
+        start_time = time.time()
+        
+        success = globals()["template_" + block + template](module)
+        
+        if success:
+            print("OK", end = "")
+        
+        duration = round(time.time() - start_time, 2)
+        print("    " + str(duration) + "s")
 
 
 def error(module, test, out, ans):
@@ -182,14 +191,13 @@ def template_N1(module):
             a = natural_rand()
             result.append(POOL.apply_async(worker, (module, [a])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N2(module):
     
     if module == "N10":
-        print("not tested")
+        print("not tested", end = "")
         return
     
     result = []
@@ -205,8 +213,7 @@ def template_N2(module):
             b = natural_rand()
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N3(module):
@@ -224,8 +231,7 @@ def template_N3(module):
             b = natural_rand(a)
             result.append(POOL.apply_async(worker, (module, [b, a])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N4(module):
@@ -243,8 +249,7 @@ def template_N4(module):
             b = randint(0, 9)
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N5(module):
@@ -262,8 +267,7 @@ def template_N5(module):
             b = randint(0, INT_HIGH)
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N6(module):
@@ -284,8 +288,7 @@ def template_N6(module):
             
             result.append(POOL.apply_async(worker, (module, [a, b, c])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N7(module):
@@ -303,8 +306,7 @@ def template_N7(module):
             b = natural_rand(a)
             result.append(POOL.apply_async(worker, (module, [b, a])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_N8(module):
@@ -322,8 +324,7 @@ def template_N8(module):
             b = natural_rand(1)
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_Z1(module):
@@ -339,8 +340,7 @@ def template_Z1(module):
             a = integer_rand()
             result.append(POOL.apply_async(worker, (module, [a])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_Z2(module):
@@ -356,8 +356,7 @@ def template_Z2(module):
             a = natural_rand()
             result.append(POOL.apply_async(worker, (module, [a])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_Z3(module):
@@ -375,8 +374,7 @@ def template_Z3(module):
             b = integer_rand()
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
 
 
 def template_Z4(module):
@@ -395,8 +393,7 @@ def template_Z4(module):
             b = integer_rand(1)
             result.append(POOL.apply_async(worker, (module, [a, b])))
     
-    if check(module, result) == True:
-        print("OK")
+    return check(module, result)
     
 
 def worker(module, arguments, cmd = 0):
