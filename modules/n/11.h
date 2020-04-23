@@ -65,6 +65,7 @@ natural *N11(natural *A, natural *B)
         C -> length -= 1;
     }
 
+    free_natural(N);
     R -> length = c;
 
     for(b = 0; b < c/2; b++)
