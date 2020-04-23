@@ -136,7 +136,7 @@ def natural_rand(min = 0):
     
     number_l = 10 ** (length - 1)
     number_r = 10 ** length - 1
-    number = randint(min, number_r)
+    number = randint(max(number_l, min), number_r)
     
     return number
 
@@ -246,16 +246,16 @@ def template_6(module):
     
     if BRUTEFORCE:
         for i in range(0, NATURAL_HIGH_2):
-            for j in range(0, NATURAL_HIGH_2):
-                for k in range(0, 9):
-                    if N9(i, j, k) >= 0:
-                        result.append(POOL.apply_async(worker, (module, [i, j, k])))
+            for j in range(0, 9):
+                for k in range(i * j, NATURAL_HIGH_2):
+                    result.append(POOL.apply_async(worker, (module, [k, i, j])))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
-            a = natural_rand()
-            b = natural_rand()
+            b = natural_rand() // 10
             c = randint(0, 9)
+            a = natural_rand(b * c)
+            
             result.append(POOL.apply_async(worker, (module, [a, b, c])))
     
     if check(module, result) == True:

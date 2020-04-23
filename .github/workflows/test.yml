@@ -7,13 +7,14 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  
+  test:
+  
     runs-on: ubuntu-latest
-
+  
     steps:
     - uses: actions/checkout@master
     - name: Sources compilation
       run: make
-    - name: Test
+    - name: Testing
       run: make test
