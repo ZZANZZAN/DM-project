@@ -271,10 +271,10 @@ natural *read_natural(const char *message) {
         
         bool was_zero = false;
         
-        while(!feof(stdin) && current != '\n' && (current == '0' || current == ' ')) {
+        while(!feof(stdin) && current == '0') {
 			
-			if(current == '0') was_zero = true;
-			current = getchar();
+			was_zero = true;
+			current = skip_spaces();
 		}
         
         /* Handling possible errors */
@@ -302,11 +302,7 @@ natural *read_natural(const char *message) {
                 }
                 
                 str[str_offset++] = current;
-                current = getchar();
-                
-            } else if(current == ' ') {
-                
-                current = getchar();
+                current = skip_spaces();
                 
             } else {
                 
@@ -453,10 +449,10 @@ integer *read_integer(const char *message) {
         
         bool was_zero = false;
         
-        while(!feof(stdin) && current != '\n' && (current == '0' || current == ' ')) {
+        while(!feof(stdin) && current == '0') {
 			
-			if(current == '0') was_zero = true;
-			current = getchar();
+			was_zero = true;
+			current = skip_spaces();
 		}
         
         /* Handling possible errors */
@@ -484,11 +480,7 @@ integer *read_integer(const char *message) {
                 }
                 
                 str[str_offset++] = current;
-                current = getchar();
-                
-            } else if(current == ' ') {
-                
-                current = getchar();
+                current = skip_spaces();
                 
             } else {
                 
