@@ -1,74 +1,84 @@
 natural *N11(natural *A, natural *B)
 {
-    natural *C, *D, *N, *R;
+    natural *C = NULL, *D = NULL, *N = NULL, *R = NULL, *G = NULL, *F = NULL;
     size_t i, c = 0;
     signed char t = 0;
-    size_t u;
-
-    N = init_natural((B -> length) + 1);
+    size_t u = 0, l;
+    
+    N = init_natural(B -> length);
     R = init_natural(A -> length);
     C = copy_natural(A);
     D = copy_natural(B);
 
     size_t j, b;
-    u = C -> length;
+    u = C -> length; // u - номер элемента в большем числе
 
-    for(j = (D -> length); j >= 1; j--)
+    for(j = (D -> length); j >= 1; j--) //присваиваю первые цифры ( для примера 333/23, следорвательно беру 33)
         N -> digits[j - 1] = (C -> digits[--u]);
 
     N -> length = D -> length;
-    C -> length -= (D -> length);
+    C -> length -= (D -> length); // уменьшаем длина большего на длину делителя
 
-    if(N1(N, D) == 1)
+    if(N1(N, D) == 1) // беру еще одну цифру, в случае, например 313/33, следовательно 31 мало, берем еще одну цифру до 313) 
     {
-        N -> length += 1;
-
-        for(b = (N -> length) - 1; b >= 1; b--)
+        l = ++(N -> length);
+        resize_natural(N, l); //  выделяем память для добавления цифры
+        
+        for(b = (N -> length) - 1; b >= 1; b--) //Сдвиг вправо для добавления еще одной цифры
             N -> digits[b] = (N -> digits[b - 1]);
-
-        N -> digits[0] = (C -> digits[--u]);
-
-        C -> length -= 1;
+        
+        N -> digits[0] = (C -> digits[--u]); // добавление цифры
+        
+        C -> length -= 1; //уменьшение длины большего числа на 1
     }
 
     i = (C -> length);
-
-    t = N10(N, D);
-    R -> digits[c++] = t;
-    R -> length = 1;
-
-    N = N9(N, D, t);
-    if((N -> length == 1) && (N -> digits[0] == 0))
-        N -> length = 0;
+    
+    t = N10(N, D); // делим взятое число и делим на делитель, например 333/23, следовательно делится 33 на 23 результат 1
+    R -> digits[c++] = t; //записывает рузельтат делиния в частное
+    
+    G = N9(N, D, t); // узнаем остаток от деления, например 333/23, 33 поделили на 23, следовательно остаток 10
+    free_natural(N);
 
     while(i--)
     {
-        N -> length += 1;
-        resize_natural(N, N -> length);
+    	if((G -> length != 1) || (G -> digits[0] != 0)) //выледяем память для добавления цифры, как в алгоритме деления в столбик
+		    {
+		    	l = ++(G -> length);
+                resize_natural(G, l);
+			}
+        
+        for(b = (G -> length); b >= 2; b--) // производим сдвиг каждого элемента вправо на 1, так как работаем с длинными числами
+            G -> digits[b - 1] = (G -> digits[b - 2]);
 
-        for(b = (N -> length); b >= 2; b--)
-            N -> digits[b - 1] = (N -> digits[b - 2]);
-
-        N -> digits[0] = (C -> digits[u - 1]);
-        if(u != 0)
+        G -> digits[0] = (C -> digits[u - 1]); // добавляем новую цифру
+        N = copy_natural(G); 
+        free_natural(G);
+        
+		if(u != 0)
             u--;
 
-        t = N10(N, D);
-        R -> digits[c++] = t;
+        t = N10(N, D); // Снова производим деление и получаем частное, пример 333/23, 33/23 остаток 10, следовательно добавлии 3  и тперь делим 103 на 23 и получаем 4
+        R -> digits[c++] = t; // снова записываем результат в следующий элемент
 
-        N = N9(N, D, t);
-        if((N -> length == 1) && (N -> digits[0] == 0))
-            N -> length = 0;
-
-        C -> length -= 1;
+        F = N9(N, D, t); //узнаем остаток от деления 103/23, тоесть 11
+        G = copy_natural(F);// копируем 11 сюда
+        
+		free_natural(F);
+        free_natural(N);
+        
+        C -> length -= 1; // уменьшаем длину большего на 1
     }
-
+    
+    // очищаем все, уже не нужны
     free_natural(C);
     free_natural(D);
-    free_natural(N);
-    R -> length = c;
+    free_natural(G);
+    
+	R -> length = c; //присваиваем длинну
+	resize_natural(R, c); // перевыделяем память подстать длине
 
-    for(b = 0; b < c/2; b++)
+    for(b = 0; b < c/2; b++) // переворачиваем результат, так как он записан в прямом порядке, а для дальнейшей работы/вывода, нужно чтобы был записан в обратном
     {
         t = R -> digits[b];
         R -> digits[b] = R -> digits[c - b - 1];
