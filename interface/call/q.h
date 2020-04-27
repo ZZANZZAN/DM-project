@@ -40,7 +40,7 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_2
             case 2:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
                 Q2(A);
                 
                 free_fraction(A);

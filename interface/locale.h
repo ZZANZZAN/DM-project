@@ -26,8 +26,8 @@
 #define SECOND_ARG_INT  "Second argument (int): "
 #define THIRD_ARG_INT   "Third argument (int): "
 
-#define FIRST_FRACT     "First argument (fraction)"
-#define SECOND_FRACT    "Second argument (fraction)"
+#define FIRST_FRACT     "First fraction (e.g. -123 / 456): "
+#define SECOND_FRACT    "First fraction (e.g. -123 / 456): "
 
 #define NUMERATOR       "    Numerator (natural): "
 #define DENOMINATOR     "    Denominator (integer): "

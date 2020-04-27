@@ -579,15 +579,234 @@ void free_fraction(fraction *F) {
 
 fraction *read_fraction(const char *message) {
     
-    print(message);
+    /* Reading every number to string */
     
-    integer *A = read_integer(NUMERATOR);
-    natural *B = read_natural(DENOMINATOR);
+    size_t offset;
+    size_t str_offset;
+    size_t str_size = 2;
     
-    fraction *F = init_fraction(A, B);
+    bool success = false;
     
-    free_integer(A);
-    free_natural(B);
+    fraction *F = mallocate(sizeof(*F), &offset);
+    F -> offset_struct = offset;
+    
+    integer *numerator;
+    natural *denominator = NULL;
+    
+    char *str = mallocate(str_size * sizeof(*str), &offset);
+    
+    while(success == false) {
+        
+        success = true;
+        str_offset = 0;
+        
+        print(message);
+        
+        bool numerator_read = false;
+        
+        /* Reading sign */
+        
+        bool sign = true;
+        
+        char current = skip_spaces();
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(current == '-') {
+            
+            sign = false;
+            current = skip_spaces();
+        }
+        
+        /* Skipping leading zeros */
+        
+        bool was_zero = false;
+        
+        while(!feof(stdin) && current == '0') {
+            
+            was_zero = true;
+            current = skip_spaces();
+        }
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(current == '\n') {
+            
+            if(was_zero == true) {
+                
+                /* Zero */
+                
+                numerator = init_integer(1);
+                numerator -> digits[0] = 0;
+                numerator -> sign = sign;
+                
+                continue;
+                
+            } else success = false;
+            
+        } else if(current == '/') success = was_zero;
+        
+        if(success == false) {
+            
+            print(UNEXP_SYMBOL "\n\n");
+            
+            while(!feof(stdin) && current != '\n') current = getchar();
+            
+            continue;
+        }
+        
+        if(numerator_read == false) {
+            
+            /* Reading numerator */
+            
+            while(!feof(stdin) && current != '\n' && current != '/') {
+                
+                if(isdigit(current)) {
+                    
+                    if(str_offset == str_size) {
+                        
+                        str_size *= 2;
+                        str = reallocate(str, sizeof(*str), offset);
+                    }
+                    
+                    str[str_offset++] = current;
+                    current = skip_spaces();
+                    
+                } else {
+                    
+                    success = false;
+                    
+                    print(UNEXP_SYMBOL "\n\n");
+                    
+                    while(!feof(stdin) && current != '\n') current = getchar();
+                }
+            }
+            
+            if(feof(stdin)) terminate(RCODE_EOF);
+            
+            if(success == false) {
+                
+                print(UNEXP_SYMBOL "\n\n");
+                
+                while(!feof(stdin) && current != '\n') current = getchar();
+                
+                continue;
+            }
+            
+            /* Initializing numerator */
+            
+            if(str_offset == 0) {
+                
+                numerator = init_integer(1);
+                numerator -> sign = sign;
+                numerator -> digits[0] = 0;
+                
+            } else {
+            
+                numerator = init_integer(str_offset);
+                numerator -> sign = sign;
+                
+                size_t j = 0;
+                
+                for(size_t i = str_offset - 1; i != SIZE_MAX; --i)
+                    numerator -> digits[j++] = str[i] - '0';
+            }
+            
+            if(current == '\n') {
+                
+                /* Integer */
+                
+                continue;
+            }
+        }
+        
+        current = skip_spaces();
+        
+        /* Reading denominator */
+        
+        /* Skipping leading zeros */
+        
+        was_zero = false;
+        
+        while(!feof(stdin) && current == '0') {
+            
+            was_zero = true;
+            current = skip_spaces();
+        }
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        str_offset = 0;
+        
+        while(!feof(stdin) && current != '\n') {
+            
+            if(isdigit(current)) {
+                
+                if(str_offset == str_size) {
+                    
+                    str_size *= 2;
+                    str = reallocate(str, sizeof(*str), offset);
+                }
+                
+                str[str_offset++] = current;
+                current = skip_spaces();
+                
+            } else {
+                
+                success = false;
+                
+                print(UNEXP_SYMBOL "\n\n");
+                
+                while(!feof(stdin) && current != '\n') current = getchar();
+            }
+        }
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(success == false) {
+            
+            print(UNEXP_SYMBOL "\n\n");
+            
+            while(!feof(stdin) && current != '\n') current = getchar();
+            
+            continue;
+        }
+        
+        /* Initializing denominator */
+        
+        if(str_offset == 0) {
+            
+            if(was_zero == true) {
+                
+                denominator = init_natural(1);
+                denominator -> digits[0] = 0;
+                
+            } else success = false;
+            
+        } else {
+        
+            denominator = init_natural(str_offset);
+            
+            size_t j = 0;
+            
+            for(size_t i = str_offset - 1; i != SIZE_MAX; --i)
+                denominator -> digits[j++] = str[i] - '0';
+        }
+    }
+    
+    free_logged(str, offset);
+    
+    F -> numerator = numerator;
+    
+    if(denominator == NULL) {
+        
+        /* Integer */
+        
+        denominator = init_natural(1);
+        denominator -> digits[0] = 1;
+    }
+    
+    F -> denominator = denominator;
     
     return F;
 }
