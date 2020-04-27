@@ -30,7 +30,7 @@ INTEGER_HIGH_2   =   64
 
 # Naturals templates
 
-templates_N = [2, 1, 1, 2, 3, 4, 5, 2, 6, 2, 7, 7, 8, 8]
+templates_N = [2, 1, 1, 2, 3, 4, 5, 2, 6, 7, 7, 7, 8, 8]
 
 # 1 - single natural
 # 2 - two naturals
@@ -195,10 +195,6 @@ def template_N1(module):
 
 
 def template_N2(module):
-    
-    if module == "N10":
-        print("not tested", end = "")
-        return
     
     result = []
     
@@ -568,7 +564,7 @@ def N9(a, b, k):
 
 
 def N10(a, b):
-    pass
+    return str(a // b)[0]
 
 
 def N11(a, b):
