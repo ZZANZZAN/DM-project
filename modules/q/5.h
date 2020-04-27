@@ -29,4 +29,3 @@ fraction *Q5(fraction *A, fraction *B) {
 
     return R1;
 }
-
