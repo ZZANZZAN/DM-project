@@ -15,9 +15,10 @@ integer *Z9(integer *A, integer *B) {
         temp_B = Z1(B);
         temp_result = N11(temp_A, temp_B);
         if (znakResult == 1) {
+            if ((B->length!=1 &&B->digits[B->length-1]!=1)){
             temp_temp_result = temp_result;
             temp_result = N3(temp_temp_result);
-            free_natural(temp_temp_result);
+            free_natural(temp_temp_result);}
             Result = Z4(temp_result);
             Result = Z3(Result);
         } else
@@ -26,7 +27,5 @@ integer *Z9(integer *A, integer *B) {
         free_natural(temp_A);
         free_natural(temp_B);
     }
-
-
     return (Result);
 }
