@@ -184,12 +184,12 @@ def template_N1(module):
     
     if BRUTEFORCE:
         for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
-            result.append(POOL.apply_async(worker, (module, [i])))
+            result.append(POOL.apply_async(worker, (module, [i], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
-            result.append(POOL.apply_async(worker, (module, [a])))
+            result.append(POOL.apply_async(worker, (module, [a], PATH)))
     
     return check(module, result)
 
@@ -201,13 +201,13 @@ def template_N2(module):
     if BRUTEFORCE:
         for i in range(NATURAL_LOW_1, NATURAL_HIGH_2):
             for j in range(NATURAL_LOW_1, NATURAL_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+                result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = natural_rand()
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
 
@@ -219,13 +219,13 @@ def template_N3(module):
     if BRUTEFORCE:
         for i in range(NATURAL_LOW_1, NATURAL_HIGH_2):
             for j in range(i, NATURAL_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [j, i])))
+                result.append(POOL.apply_async(worker, (module, [j, i], PATH)))
             
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = natural_rand(a)
-            result.append(POOL.apply_async(worker, (module, [b, a])))
+            result.append(POOL.apply_async(worker, (module, [b, a], PATH)))
     
     return check(module, result)
 
@@ -237,13 +237,13 @@ def template_N4(module):
     if BRUTEFORCE:
         for i in range(NATURAL_LOW_1, NATURAL_HIGH_1):
             for j in range(0, 9):
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+                result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = randint(0, 9)
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
 
@@ -255,13 +255,13 @@ def template_N5(module):
     if BRUTEFORCE:
         for i in range(0, NATURAL_HIGH_2):
             for j in range(0, NATURAL_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+                result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = randint(0, INT_HIGH)
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
 
@@ -274,7 +274,7 @@ def template_N6(module):
         for i in range(0, NATURAL_HIGH_2):
             for j in range(0, 9):
                 for k in range(i * j, NATURAL_HIGH_2):
-                    result.append(POOL.apply_async(worker, (module, [k, i, j])))
+                    result.append(POOL.apply_async(worker, (module, [k, i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
@@ -282,7 +282,7 @@ def template_N6(module):
             c = randint(0, 9)
             a = natural_rand(b * c)
             
-            result.append(POOL.apply_async(worker, (module, [a, b, c])))
+            result.append(POOL.apply_async(worker, (module, [a, b, c], PATH)))
     
     return check(module, result)
 
@@ -294,13 +294,13 @@ def template_N7(module):
     if BRUTEFORCE:
         for i in range(1, NATURAL_HIGH_2):
             for j in range(i, NATURAL_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [j, i])))
+                result.append(POOL.apply_async(worker, (module, [j, i], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand(1)
             b = natural_rand(a)
-            result.append(POOL.apply_async(worker, (module, [b, a])))
+            result.append(POOL.apply_async(worker, (module, [b, a], PATH)))
     
     return check(module, result)
 
@@ -312,13 +312,13 @@ def template_N8(module):
     if BRUTEFORCE:
         for i in range(1, NATURAL_HIGH_2):
             for j in range(1, NATURAL_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+                result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand(1)
             b = natural_rand(1)
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
 
@@ -329,12 +329,12 @@ def template_Z1(module):
     
     if BRUTEFORCE:
         for i in range(INTEGER_LOW_1, INTEGER_HIGH_1):
-            result.append(POOL.apply_async(worker, (module, [i])))
+            result.append(POOL.apply_async(worker, (module, [i], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = integer_rand()
-            result.append(POOL.apply_async(worker, (module, [a])))
+            result.append(POOL.apply_async(worker, (module, [a], PATH)))
     
     return check(module, result)
 
@@ -345,12 +345,12 @@ def template_Z2(module):
     
     if BRUTEFORCE:
         for i in range(0, NATURAL_HIGH_1):
-            result.append(POOL.apply_async(worker, (module, [i])))
+            result.append(POOL.apply_async(worker, (module, [i], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
-            result.append(POOL.apply_async(worker, (module, [a])))
+            result.append(POOL.apply_async(worker, (module, [a], PATH)))
     
     return check(module, result)
 
@@ -362,13 +362,13 @@ def template_Z3(module):
     if BRUTEFORCE:
         for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
             for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
-                result.append(POOL.apply_async(worker, (module, [i, j])))
+                result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = integer_rand()
             b = integer_rand()
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
 
@@ -381,18 +381,18 @@ def template_Z4(module):
         for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
             for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
                 if j != 0:
-                    result.append(POOL.apply_async(worker, (module, [i, j])))
+                    result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = integer_rand()
             b = integer_rand(1)
-            result.append(POOL.apply_async(worker, (module, [a, b])))
+            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
     
     return check(module, result)
     
 
-def worker(module, arguments, cmd = 0):
+def worker(module, arguments, path, cmd = 0):
     
     # Commands
     # 0 - usual work
@@ -406,7 +406,7 @@ def worker(module, arguments, cmd = 0):
             return
     else:
         if cmd == 0:
-            p = Popen([PATH], stdin = PIPE, stdout = PIPE, stderr = DEVNULL)
+            p = Popen([path], stdin = PIPE, stdout = PIPE, stderr = DEVNULL)
     
     # Running Python module
     
@@ -471,7 +471,7 @@ def detect_path():
         
         # Windows
         
-        if os.path.isfile("./dmcp"):
+        if os.path.isfile("./dmcp.exe"):
             return "./dmcp.exe"
         elif os.path.isfile("./main.exe"):
             return "./main.exe"
@@ -632,4 +632,5 @@ def Z10(a, b):
     return a % b
 
 
-main()
+if __name__ == "__main__":
+    main()
