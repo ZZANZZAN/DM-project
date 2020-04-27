@@ -16,12 +16,12 @@ natural *N13(natural *A,natural *B)
     }
     if(N2(first))
     {
-        free(second);
+        free_natural(second);
         return first;
     }
     else
     {
-        free(first);
+        free_natural(first);
         return second;
     }
 }

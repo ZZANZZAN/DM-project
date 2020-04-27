@@ -4,7 +4,7 @@ natural *N14(natural *A,natural *B)
     first = copy_natural(A);
     second = copy_natural(B);
     res = N11(N8(first, second), N13(first, second)); //MUL_NN_N - Умножение нат. чисел, GCF_NN_N - их НОД
-    free(first);
-    free(second);
+    free_natural(first);
+    free_natural(second);
     return res;
 }

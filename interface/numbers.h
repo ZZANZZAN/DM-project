@@ -666,7 +666,7 @@ fraction *read_fraction(const char *message) {
                     if(str_offset == str_size) {
                         
                         str_size *= 2;
-                        str = reallocate(str, sizeof(*str), offset);
+                        str = reallocate(str, str_size * sizeof(*str), offset);
                     }
                     
                     str[str_offset++] = current;
@@ -745,7 +745,7 @@ fraction *read_fraction(const char *message) {
                 if(str_offset == str_size) {
                     
                     str_size *= 2;
-                    str = reallocate(str, sizeof(*str), offset);
+                    str = reallocate(str, str_size * sizeof(*str), offset);
                 }
                 
                 str[str_offset++] = current;
