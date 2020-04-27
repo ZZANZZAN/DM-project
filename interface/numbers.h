@@ -857,84 +857,84 @@ void write_fraction(fraction *F) {
 }
 
 
-polynomial *init_polynomial(size_t degree) {
+//~ polynomial *init_polynomial(size_t degree) {
     
-    size_t offset;
+    //~ size_t offset;
     
-    polynomial *P = mallocate(sizeof(*P), &offset);
-    P -> offset_struct = offset;
-    P -> degree = degree;
+    //~ polynomial *P = mallocate(sizeof(*P), &offset);
+    //~ P -> offset_struct = offset;
+    //~ P -> degree = degree;
     
-    P -> factors = mallocate((degree + 1) * sizeof(fraction), &offset);
-    P -> offset_factors = offset;
+    //~ P -> factors = mallocate((degree + 1) * sizeof(fraction), &offset);
+    //~ P -> offset_factors = offset;
     
-    return P;
-}
+    //~ return P;
+//~ }
 
 
-polynomial *copy_polynomial(polynomial *P) {
+//~ polynomial *copy_polynomial(polynomial *P) {
     
-    polynomial *result = init_polynomial(P -> degree);
+    //~ polynomial *result = init_polynomial(P -> degree);
     
-    for(size_t i = 0; i <= (P -> degree); ++i)
-        result -> factors[i] = P -> factors[i];
+    //~ for(size_t i = 0; i <= (P -> degree); ++i)
+        //~ result -> factors[i] = P -> factors[i];
     
-    return result;
-}
+    //~ return result;
+//~ }
 
 
-void resize_polynomial(polynomial *P, size_t new_degree) {
+//~ void resize_polynomial(polynomial *P, size_t new_degree) {
     
-    P -> factors = reallocate(P, sizeof(fraction), P -> offset_factors);
-    P -> degree = new_degree;
-}
+    //~ P -> factors = reallocate(P, sizeof(fraction), P -> offset_factors);
+    //~ P -> degree = new_degree;
+//~ }
 
 
-void free_polynomial(polynomial *P) {
+//~ void free_polynomial(polynomial *P) {
     
-    for(size_t i = 0; i <= (P -> degree); ++i)
-        free_fraction(P -> factors[i]);
+    //~ for(size_t i = 0; i <= (P -> degree); ++i)
+        //~ free_fraction(P -> factors[i]);
     
-    free_logged(P, P -> offset_struct);
-}
+    //~ free_logged(P, P -> offset_struct);
+//~ }
 
 
-polynomial *read_polynomial(const char *message) {
+//~ polynomial *read_polynomial(const char *message) {
     
-    /* Initializing polynomial */
+    //~ /* Initializing polynomial */
     
-    size_t offset;
-    polynomial *P = mallocate(sizeof(*P), &offset);
+    //~ size_t offset;
+    //~ polynomial *P = mallocate(sizeof(*P), &offset);
     
-    P -> offset_struct = offset;
+    //~ P -> offset_struct = offset;
     
-    print(message);
+    //~ print(message);
     
-    /* Reading polynomial */
+    //~ /* Reading polynomial */
     
-    P -> degree = read_int(message);
+    //~ P -> degree = read_int(message);
     
-    P -> factors = mallocate(((P -> degree) + 1) * sizeof(fraction), &offset);
+    //~ P -> factors = mallocate(((P -> degree) + 1) * sizeof(fraction), &offset);
     
-    P -> offset_factors = offset;
+    //~ P -> offset_factors = offset;
     
-    for(size_t degree = P -> degree; degree != SIZE_MAX; --degree) {
+    //~ for(size_t degree = P -> degree; degree != SIZE_MAX; --degree) {
         
-        fprintf(stderr, "%zu", degree);
-        fraction *Q = read_fraction(DEG_FACTOR);
+        //~ fprintf(stderr, "%zu", degree);
+        //~ fraction *Q = read_fraction(DEG_FACTOR);
         
-        P -> factors[degree] = Q;
-    }
+        //~ P -> factors[degree] = Q;
+    //~ }
     
-    return P;
-}
+    //~ return P;
+//~ }
 
 
-void write_polynomial(polynomial *P) {
+//~ void write_polynomial(polynomial *P) {
     
-    for(size_t i = (P -> degree); i != SIZE_MAX; --i) {
+    //~ for(size_t i = (P -> degree); i != SIZE_MAX; --i) {
         
-        fprintf(stderr, DEG_FACTOR_OUT, i);
-        write_fraction(P -> factors[i]);
-    }
-}
+        //~ fprintf(stderr, DEG_FACTOR_OUT, i);
+        //~ write_fraction(P -> factors[i]);
+    //~ }
+//~ }
