@@ -48,14 +48,24 @@ typedef struct {
 } fraction;
 
 
+/* Polynomial */
+
+typedef struct {
+    
+    fraction *factors;
+    size_t degree;
+    size_t offset_struct;
+    
+} polynomial;
+
 
 /* FUNCTIONS */
 
-int read_int(const char *message);							/* Read from stdin */
+int read_int(const char *message);                      /* Read from stdin */
 
-void write_int(int n);									/* Write to stdout */
+void write_int(int n);                                  /* Write to stdout */
 
-void write_bool(bool value);							/* Write to stdout */
+void write_bool(bool value);                            /* Write to stdout */
 
 
 /* Natural numbers */
@@ -103,6 +113,19 @@ void free_fraction(fraction *F);                        /* Remove from memory */
 fraction *read_fraction(const char *message);           /* Read */
 
 void write_fraction(fraction *F);                       /* Write to stdout */
+
+
+/* Polynomials */
+
+polynomial *init_polynomial(size_t degree);             /* Initialize */
+
+polynomial *copy_polynomial(polynomial *P);             /* Copy */
+
+void free_polynomial(polynomial *P);                    /* Remove from memory */
+
+fraction *read_polynomial(const char *message);         /* Read */
+
+void write_polynomial(polynomial *P);                   /* Write to stdout */
 
 
 

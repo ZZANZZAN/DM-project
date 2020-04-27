@@ -32,6 +32,16 @@ typedef struct {
 } fraction;
 
 
+/* Polynomial */
+
+typedef struct {
+    
+    fraction *factors;
+    size_t degree;
+    
+} polynomial;
+
+
 
 /* Natural numbers */
 
