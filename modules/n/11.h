@@ -1,5 +1,3 @@
-// 9305_Nikolaenko
-
 natural *N11(natural *A, natural *B)
 {
     natural *C, *D, *N, *R;
@@ -24,12 +22,12 @@ natural *N11(natural *A, natural *B)
     if(N1(N, D) == 1)
     {
         N -> length += 1;
-        
+
         for(b = (N -> length) - 1; b >= 1; b--)
             N -> digits[b] = (N -> digits[b - 1]);
-        
+
         N -> digits[0] = (C -> digits[--u]);
-        
+
         C -> length -= 1;
     }
 
@@ -65,6 +63,8 @@ natural *N11(natural *A, natural *B)
         C -> length -= 1;
     }
 
+    free_natural(C);
+    free_natural(D);
     free_natural(N);
     R -> length = c;
 
