@@ -814,6 +814,18 @@ fraction *read_fraction(const char *message) {
 
 void write_fraction(fraction *F) {
     
-    write_integer(F -> numerator);
-    write_natural(F -> denominator);
+    if(F -> numerator -> sign == false)
+        putchar('-');
+    
+    for(size_t i = (F -> numerator -> length) - 1; i != SIZE_MAX; --i)
+        putchar(F -> numerator -> digits[i] + '0');
+    
+    printf(" / ");
+    
+    for(size_t i = (F -> denominator -> length) - 1; i != SIZE_MAX; --i)
+        putchar(F -> denominator -> digits[i] + '0');
+    
+    putchar('\n');
+    
+    fflush(stdout);
 }

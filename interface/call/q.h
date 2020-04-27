@@ -24,10 +24,10 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_1
             case 1:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
                 fraction *result = Q1(A);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_fraction(A);
@@ -58,7 +58,7 @@ unsigned char call_Q(unsigned char n) {
                 integer *A = read_integer(FIRST_ARG_LI);
                 fraction *result = Q3(A);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_integer(A);
@@ -71,7 +71,7 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_4
             case 4:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
                 integer *result = Q4(A);
                 
                 print("\n" RESULT);
@@ -87,11 +87,11 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_5
             case 5:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
-                fraction *B = read_fraction(SECOND_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
+                fraction *B = read_fraction(SECOND_FRACT);
                 fraction *result = Q5(A);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_fraction(A);
@@ -105,11 +105,11 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_6
             case 6:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
-                fraction *B = read_fraction(SECOND_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
+                fraction *B = read_fraction(SECOND_FRACT);
                 fraction *result = Q6(A);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_fraction(A);
@@ -123,11 +123,11 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_7
             case 7:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
-                fraction *B = read_fraction(SECOND_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
+                fraction *B = read_fraction(SECOND_FRACT);
                 fraction *result = Q7(A, B);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_fraction(A);
@@ -141,11 +141,11 @@ unsigned char call_Q(unsigned char n) {
         #ifdef Q_8
             case 8:
             {
-                fraction *A = read_fraction(FIRST_FRACT "\n");
-                fraction *B = read_fraction(SECOND_FRACT "\n");
+                fraction *A = read_fraction(FIRST_FRACT);
+                fraction *B = read_fraction(SECOND_FRACT);
                 fraction *result = Q8(A, B);
                 
-                print("\n" RESULT "\n");
+                print("\n" RESULT);
                 write_fraction(result);
                 
                 free_fraction(A);

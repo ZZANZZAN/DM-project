@@ -4,6 +4,6 @@ fraction *Q1(fraction *A) {
     B = N13(A -> denominator, Z1(A -> numerator));
     res -> numerator = Z9(A -> numerator, Z4(B));
     res -> denominator = N11(A -> denominator, B);
-    free(B);
+    free_natural(B);
     return res;
 }
