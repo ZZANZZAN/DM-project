@@ -473,7 +473,7 @@ def detect_path():
         
         if os.path.isfile("./dmcp"):
             return "./dmcp.exe"
-        elif os.path.isfile("./main"):
+        elif os.path.isfile("./main.exe"):
             return "./main.exe"
         else:
             print("Error: executable not found. Compile main.c")
