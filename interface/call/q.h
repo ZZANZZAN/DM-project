@@ -41,7 +41,11 @@ unsigned char call_Q(unsigned char n) {
             case 2:
             {
                 fraction *A = read_fraction(FIRST_FRACT);
-                Q2(A);
+                bool result = Q2(A);
+                
+                
+                print("\n" RESULT);
+                write_bool(result);
                 
                 free_fraction(A);
                 
