@@ -9,15 +9,15 @@ natural *N13(natural *A,natural *B)
         {
             temp = N12(first , second);
             free_natural(first);
+            first = NULL;
             first = temp;
-            free_natural(temp);
         }
         else
         {
             temp = N12(second , first);
             free_natural(second);
+            second = NULL;
             second = temp;
-            free_natural(temp);
         }
     }
     if(N2(first))
