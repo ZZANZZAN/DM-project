@@ -1,37 +1,37 @@
 natural *N8(natural *A, natural *B)
 {
-    natural *res = NULL, *temp = NULL, *t = NULL;
-    size_t i;
+    natural *res;
+    natural *temp;
+    natural *t;
+    size_t i , temp_length;
     res = init_natural(1);
     res -> digits[0] = 0;
     if (A -> length > B -> length)
     {
-        for (i = 0 ; i < B -> length; i++)
+        temp_length = B -> length;
+        for (i = 0 ; i < temp_length; i++)
         {
-            temp = N6 (A , B -> digits[i]);
+            temp = N6 (A, B -> digits[i]);
             t = temp;
-            free_natural(temp);
-            temp = N7 (t , i);
+            temp = N7 (temp , i);
             free_natural(t);
             t = res;
-            free_natural(res);
-            res = N4 (temp , t);
+            res = N4 (temp , res);
             free_natural(t);
             free_natural(temp);
         }
     }
     else
     {
-        for (i = 0 ; i < A -> length ; i++)
+        temp_length = A -> length;
+        for (i = 0 ; i < temp_length ; i++)
         {
         	temp = N6 (B , A -> digits[i]);
             t = temp;
-            free_natural(temp);
-            temp = N7 (t , i);
+            temp = N7 (temp , i);
             free_natural(t);
             t = res;
-            free_natural(res);
-            res = N4 (temp , t);
+            res = N4 (temp , res);
             free_natural(t);
             free_natural(temp);
         }
