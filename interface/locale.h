@@ -27,7 +27,10 @@
 #define THIRD_ARG_INT   "Third argument (int): "
 
 #define FIRST_FRACT     "First fraction (e.g. -123 / 456): "
-#define SECOND_FRACT    "First fraction (e.g. -123 / 456): "
+#define SECOND_FRACT    "Second fraction (e.g. -123 / 456): "
+
+#define DEG_FACTOR      " degree factor: "
+#define DEG_FACTOR_OUT  "%zu degree: "
 
 #define NUMERATOR       "    Numerator (natural): "
 #define DENOMINATOR     "    Denominator (integer): "
