@@ -89,7 +89,7 @@ unsigned char call_Q(unsigned char n) {
             {
                 fraction *A = read_fraction(FIRST_FRACT);
                 fraction *B = read_fraction(SECOND_FRACT);
-                fraction *result = Q5(A);
+                fraction *result = Q5(A, B);
                 
                 print("\n" RESULT);
                 write_fraction(result);
@@ -107,7 +107,7 @@ unsigned char call_Q(unsigned char n) {
             {
                 fraction *A = read_fraction(FIRST_FRACT);
                 fraction *B = read_fraction(SECOND_FRACT);
-                fraction *result = Q6(A);
+                fraction *result = Q6(A, B);
                 
                 print("\n" RESULT);
                 write_fraction(result);
