@@ -49,7 +49,7 @@ templates_Z = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4];
 # 1 - single integer
 # 2 - single natural
 # 3 - two integers
-# 4 - two integers, second non-zero
+# 4 - two integers, second non-zero, first bigger by absolute value
 
 
 def main():
@@ -380,14 +380,16 @@ def template_Z4(module):
     if BRUTEFORCE:
         for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
             for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
-                if j != 0:
+                if abs(i) > abs(j) and j != 0:
                     result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
-            a = integer_rand()
-            b = integer_rand(1)
-            result.append(POOL.apply_async(worker, (module, [a, b], PATH)))
+            a = natural_rand()
+            b = natural_rand(a)
+            if randint(0, 1) == 0: a = -a
+            if randint(0, 1) == 0: b = -b
+            result.append(POOL.apply_async(worker, (module, [b, a], PATH)))
     
     return check(module, result)
     
