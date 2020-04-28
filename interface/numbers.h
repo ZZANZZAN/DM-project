@@ -729,8 +729,6 @@ fraction *read_fraction(const char *message) {
                     
                     success = false;
                     
-                    print(UNEXP_SYMBOL "\n\n");
-                    
                     while(!feof(stdin) && current != '\n') current = getchar();
                 }
             }
@@ -807,8 +805,6 @@ fraction *read_fraction(const char *message) {
             } else {
                 
                 success = false;
-                
-                print(UNEXP_SYMBOL "\n\n");
                 
                 while(!feof(stdin) && current != '\n') current = getchar();
             }
