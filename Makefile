@@ -1,6 +1,10 @@
-TITLE=dmcp
+TITLE = dmcp
 
 COMMON_FLAGS = -Wall -Wextra -Wpedantic -Werror -std=c99
+
+ifeq ($(OS), Windows_NT)
+	COMMON_FLAGS += -Wno-pedantic-ms-format
+endif
 
 CFLAGS_DEBUG = $(COMMON_FLAGS) -fsanitize=undefined,address,leak -g
 

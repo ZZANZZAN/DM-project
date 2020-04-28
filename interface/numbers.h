@@ -11,14 +11,13 @@
 #include "locale.h"
 
 
-/* Windows size_t printf fix */
+/* Windows size_t fix */
 
-#if defined(_WIN32)
-    #define PR_SIZET PRIuMAX
+#ifdef _WIN32
+	#define PR_SIZET "%I64u"
 #else
-    #define PR_SIZET "%zu"
+	#define PR_SIZET "%llu"
 #endif
-
 
 /* STRUCTURES */
 
@@ -956,7 +955,9 @@ polynomial *read_polynomial(const char *message) {
     
     for(size_t i = P -> degree; i != SIZE_MAX; --i) {
         
-        int length = sprintf(hint + 4, PR_SIZET, i);
+		unsigned long long t = (unsigned long long)i;	/* Windows size_t fix */
+		
+        int length = sprintf(hint + 4, PR_SIZET, t);
         strcpy(hint + 4 + length, DEG_FACTOR);
         fraction *Q = read_fraction(hint);
         
@@ -974,7 +975,8 @@ void write_polynomial(polynomial *P) {
     for(size_t i = (P -> degree); i != SIZE_MAX; --i) {
         
         fprintf(stderr, "    ");
-        fprintf(stderr, PR_SIZET, i);
+		unsigned long long t = (unsigned long long)i;	/* Windows size_t fix */
+        fprintf(stderr, PR_SIZET, t);
         fprintf(stderr, DEG_FACTOR_OUT);
         
         write_fraction(P -> factors[i]);
