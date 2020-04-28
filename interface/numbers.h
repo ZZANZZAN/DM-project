@@ -3,11 +3,20 @@
 #pragma once
 
 #include <stdio.h>
-#include <stdint.h>
+#include <inttypes.h>
 
 #include "system.h"
 #include "io.h"
 #include "locale.h"
+
+
+/* Windows size_t printf fix */
+
+#if defined(_WIN32)
+    #define PR_SIZET PRIuMAX
+#else
+    #define PR_SIZET "%zu"
+#endif
 
 
 /* STRUCTURES */
@@ -928,7 +937,7 @@ polynomial *read_polynomial(const char *message) {
     
     for(size_t i = P -> degree; i != SIZE_MAX; --i) {
         
-        fprintf(stderr, "%zu", i);
+        fprintf(stderr, PR_SIZET, i);
         fraction *Q = read_fraction(DEG_FACTOR);
         
         P -> factors[i] = Q;
@@ -942,7 +951,9 @@ void write_polynomial(polynomial *P) {
     
     for(size_t i = (P -> degree); i != SIZE_MAX; --i) {
         
-        fprintf(stderr, DEG_FACTOR_OUT, i);
+        fprintf(stderr, PR_SIZET, i);
+        fprintf(stderr, DEG_FACTOR_OUT);
+        
         write_fraction(P -> factors[i]);
     }
 }

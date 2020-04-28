@@ -30,7 +30,7 @@
 #define SECOND_FRACT    "Second fraction (e.g. -123 / 456): "
 
 #define DEG_FACTOR      " degree factor: "
-#define DEG_FACTOR_OUT  "%zu degree: "
+#define DEG_FACTOR_OUT  " degree: "
 
 #define NUMERATOR       "    Numerator (natural): "
 #define DENOMINATOR     "    Denominator (integer): "
