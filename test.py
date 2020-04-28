@@ -627,7 +627,10 @@ def Z8(a, b):
 
 
 def Z9(a, b):
-    return a // b
+    result = abs(a) // abs(b)
+    if (a > 0) != (b > 0):
+        result *= -1
+    return result
 
 
 def Z10(a, b):
