@@ -146,13 +146,14 @@ void write_polynomial(polynomial *P);                       /* Write to stdout *
 
 int read_int(const char *message) {
 	
-    int result = 0;
+    int result;
     bool success = false;
 	bool sign = true;
     
     while(success == false) {
         
         success = true;
+        result = 0;
         
         print(message);
         
@@ -164,17 +165,34 @@ int read_int(const char *message) {
             current = skip_spaces();
         }
         
+        /* Skipping leading zeros */
+        
+        bool was_zero = false;
+        
+        while(!feof(stdin) && current == '0') {
+            
+            was_zero = true;
+            current = skip_spaces();
+        }
+        
+        if(feof(stdin)) terminate(RCODE_EOF);
+        
+        if(current == '\n' && was_zero == false) {
+            
+            if(was_zero == false) {
+                
+                success = false;
+                continue;
+            }
+        }
+        
         while(!feof(stdin) && current != '\n') {
             
             if(isdigit(current) && result <= 100000000) {
                 
                 result *= 10;
                 result += current - '0';
-                current = getchar();
-                
-            } else if(current == ' ') {
-                
-                current = getchar();
+                current = skip_spaces();
                 
             } else {
                 
