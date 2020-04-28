@@ -1,4 +1,4 @@
-int *P2(polynomial *A, polynomial *B)// модуль вычитания двух многочленов
+polynomial *P2(polynomial *A, polynomial *B)// модуль вычитания двух многочленов
 {
   int i = 0;//переменная для прохождению по массиву
   
