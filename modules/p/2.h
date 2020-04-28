@@ -1,0 +1,24 @@
+int *P2(polynomial *A, polynomial *B)// модуль вычитания двух многочленов
+{
+  int i = 0;//переменная для прохождению по массиву
+  
+  if(A -> degree > B -> degree){//определяем степень какого многочлена больше
+    polynomial *res = copy_polynomial(A);
+    for(i = 0; i < B -> degree+1; i++){
+      C -> factors[i] = Q6(A -> factors[i], B -> factors[i]);//вызов функции вычитания рациональных дробей
+    }
+    for (i = B -> degree+1;i < A -> degree+1;++i){
+      C -> factors[i] = A -> factors[i];
+    }
+  }
+  else{//все действия происходят аналогично но многочлены меняются местами 
+    polynomial *res = copy_polynomial(B);
+    for(i = 0; i < A -> degree+1; i++){
+      C -> factors[i] = Q6(B -> factors[i], A -> factors[i]);//вызов функции вычитания рациональных дробей
+    }
+    for (i = A -> degree+1;i < B -> degree+1;++i){
+      C -> factors[i] = B -> factors[i];
+    }
+  }
+  return C;
+}
