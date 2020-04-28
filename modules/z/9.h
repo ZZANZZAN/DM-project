@@ -1,6 +1,6 @@
 integer *Z9(integer *A, integer *B) {
     integer *Result;
-    natural *temp_A, *temp_B, *temp_result, *temp_temp_result,*temp;
+    natural *temp_A, *temp_B, *temp_result, *temp_temp_result, *temp;
     int znakResult;
     int znakA = Z2(A);
     int znakB = Z2(B);
@@ -14,22 +14,30 @@ integer *Z9(integer *A, integer *B) {
         temp_A = Z1(A);
         temp_B = Z1(B);
         temp_result = N11(temp_A, temp_B);
-        temp= N12(temp_A,temp_B);
+        temp = N12(temp_A, temp_B);
+
         if (znakResult == 1) {
-            if ((B->length == 1 && B->digits[B->length - 1] == 1)|| N2(temp)==false) {
-                Result = Z4(temp_result);
-                Result = Z3(Result);
-            } else{temp_temp_result = temp_result;
-            temp_result = N3(temp_temp_result);
-            free_natural(temp_temp_result);
+            if (znakA == 1) {
+                if ((B->length == 1 && B->digits[B->length - 1] == 1) || N2(temp) == false) {
+                    Result = Z4(temp_result);
+                    Result = Z3(Result);
+                } else {
+                    temp_temp_result = temp_result;
+                    temp_result = N3(temp_temp_result);
+                    free_natural(temp_temp_result);
+                }
+            }
             Result = Z4(temp_result);
-            Result = Z3(Result);}
+            Result = Z3(Result);
+
         } else
             Result = Z4(temp_result);
+
         free_natural(temp_result);
         free_natural(temp_A);
         free_natural(temp_B);
         free_natural(temp);
+
     }
 
 
