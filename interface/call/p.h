@@ -127,6 +127,78 @@ unsigned char call_P(unsigned char n) {
             }
         #endif
         
+        #ifdef P_7
+            case 7:
+            {
+                polynomial *A = read_polynomial(FIRST_POLY);
+                size_t result = P7(A);
+                
+                print("\n" RESULT);
+                write_int((int)result);
+                
+                free_polynomial(A);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_8
+            case 8:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P8(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_9
+            case 9:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P9(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_10
+            case 10:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P10(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
         #ifdef P_11
             case 11:
             {
