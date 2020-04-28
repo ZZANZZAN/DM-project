@@ -19,5 +19,5 @@ polynomial *P11(polynomial *A, polynomial *B)
         r2 = ri;
     }
 
-    return r2;
+    return r1;
 }
