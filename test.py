@@ -379,15 +379,14 @@ def template_Z4(module):
     
     if BRUTEFORCE:
         for i in range(INTEGER_LOW_2, INTEGER_HIGH_2):
-            for j in range(INTEGER_LOW_2, INTEGER_HIGH_2):
-                if abs(i) > abs(j) and j != 0:
+            for j in range(1, INTEGER_HIGH_2):
+                if abs(i) > abs(j):
                     result.append(POOL.apply_async(worker, (module, [i, j], PATH)))
     
     if RANDOM:
         for i in range(RANDOM_COUNT):
             a = natural_rand()
             b = natural_rand(a)
-            if randint(0, 1) == 0: a = -a
             if randint(0, 1) == 0: b = -b
             result.append(POOL.apply_async(worker, (module, [b, a], PATH)))
     
@@ -630,11 +629,15 @@ def Z9(a, b):
     result = abs(a) // abs(b)
     if (a > 0) != (b > 0):
         result *= -1
+    
+    if a < 0 and b > 0 and a % b != 0:
+        result -= 1
+    
     return result
 
 
 def Z10(a, b):
-    return a % b
+    return abs(a % b)
 
 
 if __name__ == "__main__":
