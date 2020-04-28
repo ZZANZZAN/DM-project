@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <inttypes.h>
+#include <string.h>
 
 #include "system.h"
 #include "io.h"
@@ -943,16 +944,21 @@ polynomial *read_polynomial(const char *message) {
     
     /* Reading polynomial */
     
-    P -> degree = read_int(message);
+    P -> degree = read_int(DEGREE);
     
     P -> factors = mallocate(((P -> degree) + 1) * sizeof(fraction), &offset);
     
     P -> offset_factors = offset;
     
+    char hint[4 + 20 + strlen(DEG_FACTOR)];
+    
+    strcpy(hint, "    ");
+    
     for(size_t i = P -> degree; i != SIZE_MAX; --i) {
         
-        fprintf(stderr, PR_SIZET, i);
-        fraction *Q = read_fraction(DEG_FACTOR);
+        int length = sprintf(hint + 4, PR_SIZET, i);
+        strcpy(hint + 4 + length, DEG_FACTOR);
+        fraction *Q = read_fraction(hint);
         
         P -> factors[i] = Q;
     }
