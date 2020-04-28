@@ -39,7 +39,7 @@
 #define P_2
 // #define P_3
 // #define P_4
-// #define P_5
+#define P_5
 #define P_6
 // #define P_7
 // #define P_8

@@ -58,6 +58,60 @@ unsigned char call_P(unsigned char n) {
             }
         #endif
         
+        #ifdef P_3
+            case 3:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                fraction *B = read_fraction(SECOND_FRACT);
+                polynomial *result = P3(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_fraction(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_4
+            case 4:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                int b = read_int(SECOND_ARG_INT);
+                polynomial *result = P4(A, (size_t)b);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_5
+            case 5:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                fraction *result = P5(A);
+                
+                print("\n" RESULT);
+                write_fraction(result);
+                
+                free_polynomial(A);
+                free_fraction(result);
+                
+                break;
+            }
+        #endif
+        
         #ifdef P_6
             case 6:
             {
