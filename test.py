@@ -52,6 +52,16 @@ templates_Z = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4];
 # 4 - two integers, second non-zero, first bigger by absolute value
 
 
+# Fractions templates
+
+templates_Q = [1, 1, 2, 1, 3, 3, 3, 4];
+
+# 1 - single fraction
+# 2 - single integer
+# 3 - two fractions
+# 4 - two fractions, second non-zero
+
+
 def main():
     
     set_flags()
@@ -638,6 +648,45 @@ def Z9(a, b):
 
 def Z10(a, b):
     return abs(a % b)
+
+
+def Q1(a, b):
+    g = N13(abs(a), abs(b))
+    return [a // g, b // g]
+
+
+def Q2(a, b):
+    if a % b == 0:
+        return True
+    else:
+        return False
+
+
+def Q3(a):
+    return [a, 1]
+
+
+def Q4(a, b):
+    if b == 1:
+        return a
+    else:
+        return "invalid module input"
+
+
+def Q5(a, b, c, d):
+    return [a * d + c * b, b * d]
+
+
+def Q6(a, b, c, d):
+    return [a * d - c * b, b * d]
+
+
+def Q7(a, b, c, d):
+    return [a * c, b * d]
+
+
+def Q8(a, b, c, d):
+    return [a * d, b * c]
 
 
 if __name__ == "__main__":
