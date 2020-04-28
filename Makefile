@@ -1,10 +1,14 @@
 TITLE=dmcp
 
-COMMON_FLAGS=-Wall -Wextra -Wpedantic -Werror -std=c99
+COMMON_FLAGS = -Wall -Wextra -Wpedantic -Werror -std=c99
 
-CFLAGS_DEBUG=$(COMMON_FLAGS) -fsanitize=undefined,address,leak -g
+ifeq ($(OS), Windows_NT)
+	COMMON_FLAGS += -Wno-pedantic-ms-format
+endif
 
-CFLAGS_RELEASE=$(COMMON_FLAGS) -s -O2
+CFLAGS_DEBUG = $(COMMON_FLAGS) -fsanitize=undefined,address,leak -g
+
+CFLAGS_RELEASE = $(COMMON_FLAGS) -s -O2
 
 all:
 	gcc $(CFLAGS_RELEASE) main.c -o $(TITLE)
