@@ -1,5 +1,7 @@
-natural *N4(natural *A, natural *B) {
-    
+//Бойкова Валерия 9305
+//Данный модуль складывает два натуральных числа
+natural *N4(natural *A, natural *B) 
+{
     bool was_swap = false;
     
     if((A -> length) < (B -> length))
