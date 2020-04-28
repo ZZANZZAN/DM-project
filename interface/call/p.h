@@ -127,6 +127,42 @@ unsigned char call_P(unsigned char n) {
             }
         #endif
         
+        #ifdef P_11
+            case 11:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P11(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
+        #ifdef P_12
+            case 12:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *result = P12(A);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
         default: return RCODE_NF;
     }
     
