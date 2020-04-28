@@ -1,9 +1,9 @@
 polynomial *P1(polynomial *A, polynomial *B)// модуль сложения двух многочленов
 {
-  int i = 0;//переменная для прохождения по массиву
+  size_t i = 0;//переменная для прохождения по массиву
+    polynomial *C = copy_polynomial(A);
   
   if(A -> degree > B -> degree){//определяем степень какого многочлена больше
-    polynomial *C = copy_polynomial(A);
     for(i = 0; i < B -> degree+1; i++){
       C -> factors[i] = Q5(A -> factors[i], B -> factors[i]);//вызов функции сложения рациональных дробей
     }

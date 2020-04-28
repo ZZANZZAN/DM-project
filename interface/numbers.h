@@ -963,6 +963,8 @@ polynomial *read_polynomial(const char *message) {
         P -> factors[i] = Q;
     }
     
+    print("\n");
+    
     return P;
 }
 
@@ -971,6 +973,7 @@ void write_polynomial(polynomial *P) {
     
     for(size_t i = (P -> degree); i != SIZE_MAX; --i) {
         
+        fprintf(stderr, "    ");
         fprintf(stderr, PR_SIZET, i);
         fprintf(stderr, DEG_FACTOR_OUT);
         

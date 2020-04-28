@@ -20,9 +20,28 @@ unsigned char call_P(unsigned char n);      /* Block N wrappers */
 unsigned char call_P(unsigned char n) {
         
     switch(n) {
+        #ifdef P_1
+            case 1:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P1(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
         
         #ifdef P_6
-            case 6: {
+            case 6:
+            {
                 polynomial *A = read_polynomial(FIRST_POLY);
                 size_t result = P6(A);
                 
