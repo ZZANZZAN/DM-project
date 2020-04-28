@@ -1,19 +1,17 @@
 polynomial *P3(polynomial *A, fraction *B)
 {
 	polynomial *res = NULL;
-	fraction *temp = NULL, *temp1 = NULL;
+	fraction *temp = NULL;
 	
 	res = copy_polynomial(A);
 	
-	temp = Q3 (B);
-	
 	for (size_t i = 0; i <= A -> degree; i++)
 	{
-		temp1 = Q7 (A -> factors[i], temp);
+		temp = Q7 (A -> factors[i], B);
 	
-		res -> factors[i] = copy_fraction(temp1);
-	
-		free_fraction(temp1);
+		free_fraction(res -> factors[i]);
+        
+        res -> factors[i] = temp;
 	}
 	
 	free_fraction(temp);
