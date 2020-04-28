@@ -78,6 +78,17 @@ fraction *copy_fraction(fraction *F);                   /* Copy */
 void free_fraction(fraction *F);                        /* Remove from memory */
 
 
+/* Polynomials */
+
+polynomial *init_polynomial(size_t degree);                 /* Initialize */
+
+polynomial *copy_polynomial(polynomial *P);                 /* Copy */
+
+void resize_polynomial(polynomial *P, size_t new_degree);  /* Change degree */
+
+void free_polynomial(polynomial *P);                        /* Remove from memory */
+
+
 
 /* For debugging only */
 
@@ -86,3 +97,5 @@ void write_natural(natural *N);                         /* Write to stdout */
 void write_integer(integer *N);                         /* Write to stdout */
 
 void write_fraction(fraction *F);                       /* Write to stdout */
+
+void write_polynomial(polynomial *P);                   /* Write to stdout */
