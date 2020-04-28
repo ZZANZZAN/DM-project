@@ -39,6 +39,25 @@ unsigned char call_P(unsigned char n) {
             }
         #endif
         
+        #ifdef P_2
+            case 2:
+            {
+                
+                polynomial *A = read_polynomial(FIRST_POLY);
+                polynomial *B = read_polynomial(SECOND_POLY);
+                polynomial *result = P2(A, B);
+                
+                print("\n" RESULT);
+                write_polynomial(result);
+                
+                free_polynomial(A);
+                free_polynomial(B);
+                free_polynomial(result);
+                
+                break;
+            }
+        #endif
+        
         #ifdef P_6
             case 6:
             {
