@@ -1,4 +1,6 @@
 #include <stdint.h>
+//Бессонов Никита 9305
+//Этот модуль умножает число на 10^k
 natural *N7(natural *A, int k)
 {
     if(N2(A) == false) return copy_natural(A);
