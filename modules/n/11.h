@@ -1,3 +1,5 @@
+//Китаев Иван 9305
+//Нахождение частного от деления большего числа на меньшее или равное
 natural *N11(natural *A, natural *B)
 {
     natural *C = NULL, *D = NULL, *N = NULL, *R = NULL, *G = NULL, *F = NULL;
