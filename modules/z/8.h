@@ -1,3 +1,5 @@
+//Лялина Анастасия 9307
+//Умножение целых чисел
 integer *Z8(integer *A, integer *B) {
     integer *R;
   
