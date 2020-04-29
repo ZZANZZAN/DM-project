@@ -1,3 +1,5 @@
+//Ковалёва Ксения 9305
+//Нахождение НОК двух чисел
 natural *N14(natural *A,natural *B)
 {
     natural *first = NULL, *second = NULL, *res = NULL, *temp1 = NULL, *temp2 = NULL;
@@ -5,7 +7,7 @@ natural *N14(natural *A,natural *B)
     second = copy_natural (B);
     temp1 = N8 (first, second);
     temp2 = N13 (first, second);
-    res = N11 (temp1, temp2);
+    res = N11 (temp1, temp2);// НОК = A * B / НОД
     free_natural(temp1);
     free_natural(temp2);
     free_natural(first);
