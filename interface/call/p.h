@@ -28,7 +28,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *B = read_polynomial(SECOND_POLY);
                 polynomial *result = P1(A, B);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
@@ -150,7 +150,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *B = read_polynomial(SECOND_POLY);
                 polynomial *result = P8(A, B);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
@@ -169,7 +169,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *B = read_polynomial(SECOND_POLY);
                 polynomial *result = P9(A, B);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
@@ -188,7 +188,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *B = read_polynomial(SECOND_POLY);
                 polynomial *result = P10(A, B);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
@@ -207,7 +207,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *B = read_polynomial(SECOND_POLY);
                 polynomial *result = P11(A, B);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
@@ -225,7 +225,7 @@ unsigned char call_P(unsigned char n) {
                 polynomial *A = read_polynomial(FIRST_POLY);
                 polynomial *result = P12(A);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
