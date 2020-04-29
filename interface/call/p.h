@@ -85,7 +85,7 @@ unsigned char call_P(unsigned char n) {
                 int b = read_int(SECOND_ARG_INT);
                 polynomial *result = P4(A, (size_t)b);
                 
-                print("\n" RESULT);
+                print("\n" RESULT "\n");
                 write_polynomial(result);
                 
                 free_polynomial(A);
