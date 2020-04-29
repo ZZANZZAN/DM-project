@@ -1,3 +1,5 @@
+//Любоневич Роман 9305
+//Умножение дробей
 fraction *Q7(fraction *A, fraction *B) {
     integer *C, *D, *tempInt;
     natural *tempNat;
@@ -8,7 +10,7 @@ fraction *Q7(fraction *A, fraction *B) {
     D = copy_integer(B->numerator);
 
     tempInt=C;
-    C = Z8(C, D);
+    C = Z8(C, D);//Вычисление числителя
     free_integer(tempInt);
 
     integer *N, *P;
@@ -24,7 +26,7 @@ fraction *Q7(fraction *A, fraction *B) {
         P->digits[i] = (A->denominator->digits[i]);
 
     tempInt=P;
-    P = Z8(N, P);
+    P = Z8(N, P);//Вычисление знаменателя
     free_integer(tempInt);
 
     if ((P->sign) == false) C = Z3(C);
@@ -36,7 +38,7 @@ fraction *Q7(fraction *A, fraction *B) {
     natural *K = init_natural(C->length);
     for (size_t j = 0; j < (C->length); j++) K->digits[j] = C->digits[j];
 
-    natural *F = N13(K, G);
+    natural *F = N13(K, G);//Сокращение дроби
 
     tempNat=K;
     K = N11(K, F);
