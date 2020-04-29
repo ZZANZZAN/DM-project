@@ -1,3 +1,5 @@
+//Игнатьев Константин 9305
+//Преобразование дробного в целое
 integer *Q4( fraction *A) {
         integer *R=NULL;
         //test for the ability to transform into integer
