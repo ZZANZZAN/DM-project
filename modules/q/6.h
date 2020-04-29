@@ -1,3 +1,5 @@
+//Бессонов Никита 9305
+//Вычитание дробей
 fraction *Q6(fraction *A, fraction *B) {
     fraction *R = NULL, *R1 = NULL;
     natural *N = NULL;
