@@ -1,3 +1,5 @@
+//Чугуй Владимир 9305
+//Сложение дробных чисел
 fraction *Q5(fraction *A, fraction *B) {
     fraction *R = NULL, *R1 = NULL;
     natural *N = NULL;
