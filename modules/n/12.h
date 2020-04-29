@@ -1,3 +1,5 @@
+//Китаев Иван 9305
+//Вычисление остатка от деления
 natural *N12(natural *A, natural *B) 
 {
     natural *remainder = NULL, *quotient = NULL, *divider = NULL, *dividend = NULL, *temp = NULL;
