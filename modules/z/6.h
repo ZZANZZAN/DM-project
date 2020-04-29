@@ -1,3 +1,5 @@
+//Когутенко Андрей 9305
+//Сложение целых чисел
 integer *Z6(integer *A, integer *B)
 {
     integer *R;
@@ -8,7 +10,7 @@ integer *Z6(integer *A, integer *B)
     R = init_integer(bN -> length);
     R = NULL;
 
-    if ((Z2(A) == 2) && (Z2(B) == 2)) {
+    if ((Z2(A) == 2) && (Z2(B) == 2)) {//Рассмотрение всех возможных случаев сложения
         L = N4(aN, bN);
         R = init_integer(L -> length);
         R = Z4(L);
