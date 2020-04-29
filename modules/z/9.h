@@ -1,3 +1,5 @@
+//Ковалёва Ксения 9305
+//Частное от деления целого числа на натуральное
 integer *Z9(integer *A, integer *B) {
     integer *Result;
     natural *temp_A, *temp_B, *temp_result, *temp_temp_result, *temp;
